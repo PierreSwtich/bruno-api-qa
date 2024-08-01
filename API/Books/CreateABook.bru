@@ -1,0 +1,71 @@
+meta {
+  name: Create A Book
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}{{booksEndpoint}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:json {
+  {
+    "title": "{{bookTitle}}",
+    "description": "{{bookDesc}}",
+    "pages": {{bookPages}}
+  }
+}
+
+assert {
+  res.body.title: eq {{bookTitle}}
+  res.body.description: eq {{bookDesc}}
+  res.body.pages: eq {{bookPages}}
+}
+
+script:pre-request {
+  const { faker } = require('@faker-js/faker')
+  
+  const randomTitle = faker.word.words({ count: { min: 1, max: 5 } })
+  const randomDesc = faker.word.words({ count: { min: 10, max: 25 } })
+  const randomPages = faker.number.int({ min: 2, max: 1500 })
+  
+  bru.setEnvVar("bookTitle", randomTitle)
+  bru.setEnvVar("bookDesc", randomDesc)
+  bru.setEnvVar("bookPages", randomPages)
+}
+
+script:post-response {
+  bru.setEnvVar("newBookId", res.body.id)
+}
+
+tests {
+  test('Expect status code to be 201', function() {
+      expect(res.status).to.equals(201)
+  })
+  test('Expect response time to be below 1500ms', function() {
+      expect(res.responseTime).to.be.below(1500)
+  })
+  test('Expect res.body to be an object', function() {
+      expect(res.body).to.be.an('object')
+  })
+  test('Book id is defined', function() {
+      expect(res.body.id).to.exist
+      expect(res.body.createdat).to.exist
+      expect(res.body.updatedat).to.exist
+  })
+  test('Expect res.body values to match the body request input', function() {
+      const reqTitle = bru.getEnvVar("bookTitle")
+      const reqDesc = bru.getEnvVar("bookDesc")
+      const reqPages = bru.getEnvVar("bookPages")
+  
+      expect(res.body.title).to.equals(reqTitle)
+      expect(res.body.description).to.equals(reqDesc)
+      expect(res.body.pages).to.equals(reqPages)
+  })
+}
