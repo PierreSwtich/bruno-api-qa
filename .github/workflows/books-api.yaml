@@ -1,0 +1,54 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * 1"  # Every Monday at 00:00 UTC
+    - cron: "0 0 * * 5"  # Every Friday at 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./API
+
+      - name: Run booksAPI tests
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: npm run booksAPI
+        working-directory: ./API
+
+      - name: Create results directory
+        run: mkdir -p API/results
+
+      - name: Move results to results directory
+        run: mv API/results.html API/results/results.html
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: API/results/results.html
+          retention-days: 3
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: API/results
+          publish_branch: gh-pages
