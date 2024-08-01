@@ -1,0 +1,57 @@
+meta {
+  name: Create Movie item
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}/movies
+  body: json
+  auth: none
+}
+
+assert {
+  req.body.title: isDefined
+  req.body.lenghtInMinutes: isDefined
+}
+
+script:pre-request {
+    const { faker } = require('@faker-js/faker')
+  
+    const randomTitle = faker.word.words({ count: { min: 1, max: 5 } })
+    const randomDuration = faker.number.int({ min: 0, max: 500 })
+  
+    bru.setEnvVar("movieTitle", randomTitle)
+    bru.setEnvVar("movieDuration", randomDuration)
+  
+    req.setBody({
+        title: randomTitle,
+        lenghtInMinutes: randomDuration
+    })
+}
+
+script:post-response {
+    bru.setEnvVar("newMovieId", res.body.id)
+}
+
+tests {
+    test('Expect status code to be 201', function() {
+        expect(res.status).to.equals(201)
+    })
+    test('Expect response time to be below 200ms', function() {
+        expect(res.responseTime).to.be.below(200)
+    })
+    test('Expect res.body to be an object', function() {
+        expect(res.body).to.be.an('object')
+    })
+    test('Movie id is defined', function() {
+        expect(res.body.id).to.exist
+    })
+    test('Expect res.body values to match the body request input', function() {
+        const reqTitle = bru.getEnvVar("movieTitle")
+        const reqDuration = bru.getEnvVar("movieDuration")
+  
+        expect(res.body.title).to.equals(reqTitle)
+        expect(res.body.lenghtInMinutes).to.equals(reqDuration)
+    })
+}

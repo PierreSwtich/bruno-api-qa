@@ -1,0 +1,33 @@
+meta {
+  name: Get Newly Created Movie entry
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseURL}}/movies/{{newMovieId}}
+  body: none
+  auth: none
+}
+
+tests {
+    test('Expect status code to be 200', function() {
+        expect(res.status).to.equals(200)
+    })
+    test('Expect response time to be below 200ms', function() {
+        expect(res.responseTime).to.be.below(200)
+    })
+    test('Expect res.body to be an object', function() {
+        expect(res.body).to.be.an('object')
+    })
+  
+    test('Verify the response data', function() {
+        const movieTitle = bru.getEnvVar("movieTitle")
+        const movieDuration = bru.getEnvVar("movieDuration")
+        const movieId = bru.getEnvVar("newMovieId")
+  
+        expect(res.body.title).to.equals(movieTitle)
+        expect(res.body.lenghtInMinutes).to.equals(movieDuration)
+        expect(res.body.id).to.equals(movieId)
+    })
+}
