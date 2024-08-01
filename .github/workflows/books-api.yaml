@@ -22,6 +22,12 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Install Bru CLI from NPM
+        run: npm install -g @usebruno/cli
+  
+      - name: Display Bru CLI Version
+        run: bru --version
+
       - name: Install dependencies
         run: npm install
         working-directory: ./API
