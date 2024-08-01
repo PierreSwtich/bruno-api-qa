@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{baseURL}}/movies/{{newMovieId}}
+  url: {{baseURL}}{{book}}/{{newBookId}}
   body: none
   auth: none
 }
@@ -22,12 +22,14 @@ tests {
     })
   
     test('Verify the response data', function() {
-        const movieTitle = bru.getEnvVar("movieTitle")
-        const movieDuration = bru.getEnvVar("movieDuration")
-        const movieId = bru.getEnvVar("newMovieId")
+        const bookTitle = bru.getEnvVar("bookTitle")
+        const bookDesc = bru.getEnvVar("bookDesc")
+        const bookPages = bru.getEnvVar("bookPages")
+        const bookId = bru.getEnvVar("newBookId")
   
-        expect(res.body.title).to.equals(movieTitle)
-        expect(res.body.lenghtInMinutes).to.equals(movieDuration)
-        expect(res.body.id).to.equals(movieId)
+        expect(res.body.title).to.equals(bookTitle)
+        expect(res.body.lenghtInMinutes).to.equals(bookDesc)
+        expect(res.body.lenghtInMinutes).to.equals(bookPages)
+        expect(res.body.id).to.equals(bookId)
     })
 }

@@ -1,11 +1,11 @@
 meta {
-  name: Create Movie item
+  name: Create Book item
   type: http
   seq: 2
 }
 
 post {
-  url: {{baseURL}}/movies
+  url: {{baseURL}}{{books}}
   body: json
   auth: none
 }
@@ -19,19 +19,22 @@ script:pre-request {
     const { faker } = require('@faker-js/faker')
   
     const randomTitle = faker.word.words({ count: { min: 1, max: 5 } })
-    const randomDuration = faker.number.int({ min: 0, max: 500 })
+    const randomDesc = faker.word.words({ count: { min: 10, max: 25 } })
+    const randomPages = faker.number.int({ min: 1, max: 1500 })
   
-    bru.setEnvVar("movieTitle", randomTitle)
-    bru.setEnvVar("movieDuration", randomDuration)
+    bru.setEnvVar("bookTitle", randomTitle)
+    bru.setEnvVar("bookDesc", randomDesc)
+    bru.setEnvVar("bookPages", randomDuration)
   
     req.setBody({
-        title: randomTitle,
-        lenghtInMinutes: randomDuration
+        title: bookTitle,
+        description: bookDesc
+        lenghtInMinutes: randomPages
     })
 }
 
 script:post-response {
-    bru.setEnvVar("newMovieId", res.body.id)
+    bru.setEnvVar("newBookId", res.body.id)
 }
 
 tests {
@@ -44,14 +47,16 @@ tests {
     test('Expect res.body to be an object', function() {
         expect(res.body).to.be.an('object')
     })
-    test('Movie id is defined', function() {
+    test('Book id is defined', function() {
         expect(res.body.id).to.exist
     })
     test('Expect res.body values to match the body request input', function() {
-        const reqTitle = bru.getEnvVar("movieTitle")
-        const reqDuration = bru.getEnvVar("movieDuration")
+        const reqTitle = bru.getEnvVar("bookTitle")
+        const reqDesc = bru.getEnvVar("bookDesc")
+        const reqPages = bru.getEnvVar("bookPages")
   
         expect(res.body.title).to.equals(reqTitle)
-        expect(res.body.lenghtInMinutes).to.equals(reqDuration)
+        expect(res.body.description).to.equals(reqDesc)
+        expect(res.body.pages).to.equals(reqPages)
     })
 }

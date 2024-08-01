@@ -5,13 +5,13 @@ meta {
 }
 
 delete {
-  url: {{baseURL}}/movies/{{newMovieId}}
+  url: {{baseURL}}{{books}}/{{newBookId}}
   body: none
   auth: none
 }
 
 assert {
-  res.body: isEmpty 
+  res.body: isEmpty
 }
 
 tests {
