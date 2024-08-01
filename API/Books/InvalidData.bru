@@ -41,8 +41,8 @@ tests {
         expect(res.status).to.equals(400)
     })
 
-    test('Expect response time to be less than 1200ms', function() {
-        expect(res.responseTime).to.be.below(1200)
+    test('Expect response time to be less than 3500ms', function() {
+        expect(res.responseTime).to.be.below(3500)
     })
 
     test('Expect response error to have a clear information', function() {

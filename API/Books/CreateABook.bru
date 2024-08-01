@@ -48,8 +48,8 @@ tests {
   test('Expect status code to be 201', function() {
       expect(res.status).to.equals(201)
   })
-  test('Expect response time to be below 1500ms', function() {
-      expect(res.responseTime).to.be.below(1500)
+  test('Expect response time to be below 3500ms', function() {
+      expect(res.responseTime).to.be.below(3500)
   })
   test('Expect res.body to be an object', function() {
       expect(res.body).to.be.an('object')

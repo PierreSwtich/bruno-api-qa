@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 20
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -40,12 +40,15 @@ jobs:
         working-directory: ./API
 
       - name: Create results directory
+        if: always()
         run: mkdir -p API/results
 
       - name: Move results to results directory
+        if: always()
         run: mv API/results.html API/results/results.html
 
       - name: Upload test results
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: test-results
@@ -53,6 +56,7 @@ jobs:
           retention-days: 3
 
       - name: Deploy to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

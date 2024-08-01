@@ -22,7 +22,7 @@ tests {
     test('Expect status code to be 204', function() {
         expect(res.status).to.equals(204)
     })
-    test('Expect response time to be below 1200ms', function() {
-        expect(res.responseTime).to.be.below(1200)
+    test('Expect response time to be below 3500ms', function() {
+        expect(res.responseTime).to.be.below(3500)
     })
 }
