@@ -5,8 +5,8 @@
         "main": "https://github.com/PierreSwtich/bruno-api-qa"
     },
     "scripts": {
-        "booksAPI": "bru run --env books-env --output=results.html --format=html",
-        "openReport": "powershell -Command \"Start-Process chrome.exe -ArgumentList ('file:///' + (Get-Location).Path.replace('\\\\', '/') + '/results.html')\""
+        "booksAPI": "bru run --env books-env --output=index.html --format=html",
+        "openReport": "powershell -Command \"Start-Process chrome.exe -ArgumentList ('file:///' + (Get-Location).Path.replace('\\\\', '/') + '/index.html')\""
     },
     "dependencies": {
         "@faker-js/faker": "^8.4.1"
