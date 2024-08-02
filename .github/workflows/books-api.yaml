@@ -46,14 +46,6 @@ jobs:
       - name: Move index.html results file to results directory
         if: always()
         run: mv API/index.html API/results/index.html
-
-      - name: Upload test results as artifact
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: API/results/index.html
-          retention-days: 3
           
       - name: Sanitize report
         run: node sanitizeReport.js
@@ -66,3 +58,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: API/results
           publish_branch: gh-pages
+
+      - name: Upload test results as artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: API/results/index.html
+          retention-days: 3
