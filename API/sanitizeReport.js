@@ -13,8 +13,9 @@ fs.readFile(reportPath, 'utf8', (err, data) => {
   // Replace sensitive data
   let sanitizedData = data.replace(/"username":\s*"[^"]*"/g, '"username": "REDACTED"')
                           .replace(/"password":\s*"[^"]*"/g, '"password": "REDACTED"')
-                          .replace(/"token":\s*"[^"]*"/g, '"token": "REDACTED"');
-
+                          .replace(/"token":\s*"[^"]*"/g, '"token": "REDACTED"')
+                          .replace(/"Authorization":\s*"Bearer [^"]*"/g, '"Authorization": "Bearer REDACTED"');
+  
   fs.writeFile(reportPath, sanitizedData, 'utf8', (err) => {
     if (err) {
       console.error('Error writing the sanitized report file:', err);

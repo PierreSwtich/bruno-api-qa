@@ -62,3 +62,26 @@ This API Collection is primarily focused on the following functionalities:
 ## Deployment
 
 The index file is deployed to GitHub Pages. You can view the deployed content at the following URL: ```https://<your-github-username>.github.io/bruno-api-qa/```
+
+### Sanitizing Sensitive Data
+
+To ensure sensitive information such as usernames, passwords, tokens, and authorization headers are not exposed in the test report, a script named `sanitizeReport.js` is used. This script replaces sensitive data with placeholder text before the report is published to GitHub Pages.
+
+#### `sanitizeReport.js`
+
+The `sanitizeReport.js` script reads the generated test report and sanitizes the following sensitive fields:
+
+- `username`
+- `password`
+- `token`
+- `Authorization`
+
+### Using the Sanitization Script
+
+The script is integrated into the GitHub Actions workflow and runs automatically after the tests are executed and before the report is published. This ensures that all sensitive data is sanitized in the report.
+
+To manually run the sanitization script, navigate to the `api` directory and execute:
+
+```sh
+node sanitizeReport.js
+```
