@@ -410,24 +410,24 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "175",
             "content-type": "application/json; charset=utf-8",
-            "date": "Fri, 02 Aug 2024 10:00:49 GMT",
-            "etag": "W/\"af-D2tV+kYleR6o4l3Kc7O59T8iIbQ\"",
+            "date": "Mon, 05 Aug 2024 00:47:43 GMT",
+            "etag": "W/\"af-Ol8x3ZoEK8+6+vKutTlWkSNjVRE\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::kpfnk-1722592847561-44d7b38836c5",
+            "x-vercel-id": "iad1::iad1::4jvkw-1722818861958-a834fe51e47d",
             "connection": "close"
           },
           "data": {
             "token": "REDACTED"
           },
-          "responseTime": 2166
+          "responseTime": 1957
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "pR5wOeEUnERKs20oR2875",
+            "uid": "miPdONsGt4hWV19RdO7Gx",
             "lhsExpr": "res.body.token",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -439,25 +439,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "bIXsNZ2ji2Cpw-EVvEz4P"
+            "uid": "WPM3QmEA-h18FZI1moNqI"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "P8knESBmdVi0oMaIon6K-"
+            "uid": "m3uJ_Th_GWWRS98Fs6J1t"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "DwUxPaMH6sac-pYgCvwDQ"
+            "uid": "oZlan3m8pJR-pdUxKiVT6"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "gvWK6J2wGahSXu58XqK-f"
+            "uid": "V0hB-viDWS-LZAR2m49SG"
           }
         ],
-        "runtime": 2.19839455,
+        "runtime": 1.990040705,
         "suitename": "Books/loginAuth",
         "iterationIndex": 0
       },
@@ -472,38 +472,38 @@
             "Authorization": "REDACTED",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"rubbish whoever failing meanwhile\",\n  \"description\": \"oof double perfectly yuck stingy sleepily absent across whoever often lunchmeat undershirt gah pish webbed boiling forbear take violently\",\n  \"pages\": 438\n}"
+          "data": "{\n  \"title\": \"eek bleat officially\",\n  \"description\": \"hastily yawningly reassuringly nail divulge fervently whenever until aw playfully off\",\n  \"pages\": 1039\n}"
         },
         "response": {
           "status": 201,
           "statusText": "Created",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "333",
+            "content-length": "269",
             "content-type": "application/json; charset=utf-8",
-            "date": "Fri, 02 Aug 2024 10:00:51 GMT",
-            "etag": "W/\"14d-7Ps39BRxewzfUu2rCmxgGhN69GU\"",
+            "date": "Mon, 05 Aug 2024 00:47:45 GMT",
+            "etag": "W/\"10d-JT7u2+uyhBZERf/qvC6lXJENPvo\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::qvnkh-1722592851250-db3e644390ec",
+            "x-vercel-id": "iad1::iad1::ksk7p-1722818865484-b04703e5211e",
             "connection": "close"
           },
           "data": {
-            "id": "2d4bf3ea-2afe-4605-9ac6-537e2e223a60",
-            "title": "rubbish whoever failing meanwhile",
-            "description": "oof double perfectly yuck stingy sleepily absent across whoever often lunchmeat undershirt gah pish webbed boiling forbear take violently",
-            "pages": 438,
-            "createdat": "2024-08-02T10:00:51.298Z",
-            "updatedat": "2024-08-02T10:00:51.298Z"
+            "id": "dab4563f-8f14-495f-8780-f7a46bd25af8",
+            "title": "eek bleat officially",
+            "description": "hastily yawningly reassuringly nail divulge fervently whenever until aw playfully off",
+            "pages": 1039,
+            "createdat": "2024-08-05T00:47:45.512Z",
+            "updatedat": "2024-08-05T00:47:45.512Z"
           },
-          "responseTime": 115
+          "responseTime": 97
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "kjYWFiB45l0VlBM2p9FKN",
+            "uid": "hdHctgkVErHraRxLxhJZZ",
             "lhsExpr": "res.body.title",
             "rhsExpr": "eq {{bookTitle}}",
             "rhsOperand": "{{bookTitle}}",
@@ -511,7 +511,7 @@
             "status": "pass"
           },
           {
-            "uid": "6aQnpqOIUjfxCjIQTsuqa",
+            "uid": "P8b5jolGpmMB_JH7i828F",
             "lhsExpr": "res.body.description",
             "rhsExpr": "eq {{bookDesc}}",
             "rhsOperand": "{{bookDesc}}",
@@ -519,7 +519,7 @@
             "status": "pass"
           },
           {
-            "uid": "gpyi6-69Baw8s-SjNAJzu",
+            "uid": "exthutB0iX1UJcNPyFDYy",
             "lhsExpr": "res.body.pages",
             "rhsExpr": "eq {{bookPages}}",
             "rhsOperand": "{{bookPages}}",
@@ -531,30 +531,30 @@
           {
             "description": "Expect status code to be 201",
             "status": "pass",
-            "uid": "VTkAlVkplo_kYWoTJFan0"
+            "uid": "ohe6vSTnYnqhPESFrQF7r"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "mFHtfNlfum6o6ZYvn2cXy"
+            "uid": "UuNxtIstUxb8Pg9hY4JiU"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "X2_ZOBAGRMf9MhAJZX-A4"
+            "uid": "eVO_BSWir__KyOMP4YJIe"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "1QJ0C35wfg-sguyvPQ__m"
+            "uid": "ksk8V-zXYvcj63b5tYN0L"
           },
           {
             "description": "Expect res.body values to match the body request input",
             "status": "pass",
-            "uid": "ti_n5V80xLphKWkuhIV9Y"
+            "uid": "gUIZxAOzdArLoVSSx8Hzw"
           }
         ],
-        "runtime": 1.6653202070000002,
+        "runtime": 1.687176024,
         "suitename": "Books/CreateABook",
         "iterationIndex": 0
       },
@@ -564,7 +564,7 @@
         },
         "request": {
           "method": "GET",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/2d4bf3ea-2afe-4605-9ac6-537e2e223a60",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/dab4563f-8f14-495f-8780-f7a46bd25af8",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -574,26 +574,26 @@
           "statusText": "OK",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "333",
+            "content-length": "269",
             "content-type": "application/json; charset=utf-8",
-            "date": "Fri, 02 Aug 2024 10:00:51 GMT",
-            "etag": "W/\"14d-7Ps39BRxewzfUu2rCmxgGhN69GU\"",
+            "date": "Mon, 05 Aug 2024 00:47:45 GMT",
+            "etag": "W/\"10d-JT7u2+uyhBZERf/qvC6lXJENPvo\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "BYPASS",
-            "x-vercel-id": "iad1::iad1::gbk6n-1722592851378-310efc2af15c",
+            "x-vercel-id": "iad1::iad1::fp9qg-1722818865596-e1464af63eb9",
             "connection": "close"
           },
           "data": {
-            "id": "2d4bf3ea-2afe-4605-9ac6-537e2e223a60",
-            "title": "rubbish whoever failing meanwhile",
-            "description": "oof double perfectly yuck stingy sleepily absent across whoever often lunchmeat undershirt gah pish webbed boiling forbear take violently",
-            "pages": 438,
-            "createdat": "2024-08-02T10:00:51.298Z",
-            "updatedat": "2024-08-02T10:00:51.298Z"
+            "id": "dab4563f-8f14-495f-8780-f7a46bd25af8",
+            "title": "eek bleat officially",
+            "description": "hastily yawningly reassuringly nail divulge fervently whenever until aw playfully off",
+            "pages": 1039,
+            "createdat": "2024-08-05T00:47:45.512Z",
+            "updatedat": "2024-08-05T00:47:45.512Z"
           },
-          "responseTime": 87
+          "responseTime": 88
         },
         "error": null,
         "assertionResults": [],
@@ -601,25 +601,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "nfIMtCpnC7XvwZt3Bj4aU"
+            "uid": "T8jbPq_JPVFiFwpVp50q8"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "3kqas_KrJyQWavEtmcG-G"
+            "uid": "R1bqq7U2NlStY8UyXjuqm"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "5Go2xW_Yo8Dcc_5Lsq-ms"
+            "uid": "7BpyeZJvxmfTk9Eytrz2X"
           },
           {
             "description": "Verify the response data",
             "status": "pass",
-            "uid": "bYPm2SoggbpOF-Xup7a-E"
+            "uid": "aa5-7Rpn0XJxFtQclblsK"
           }
         ],
-        "runtime": 0.092850359,
+        "runtime": 0.094417709,
         "suitename": "Books/GetBook",
         "iterationIndex": 0
       },
@@ -635,8 +635,8 @@
             "content-type": "application/json"
           },
           "data": {
-            "title": "rubbish whoever failing meanwhile",
-            "description": "oof double perfectly yuck stingy sleepily absent across whoever often lunchmeat undershirt gah pish webbed boiling forbear take violently",
+            "title": "eek bleat officially",
+            "description": "hastily yawningly reassuringly nail divulge fervently whenever until aw playfully off",
             "pages": 0
           }
         },
@@ -647,22 +647,22 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "38",
             "content-type": "text/html; charset=utf-8",
-            "date": "Fri, 02 Aug 2024 10:00:52 GMT",
+            "date": "Mon, 05 Aug 2024 00:47:46 GMT",
             "etag": "W/\"26-RourOR9kEZf6mT1ZCEv2wGjOtJM\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::lhtb2-1722592852431-2ab79961a9c5",
+            "x-vercel-id": "iad1::iad1::rsmdj-1722818866654-0db0d582946e",
             "connection": "close"
           },
           "data": "Pages must be a number and at least 1.",
-          "responseTime": 111
+          "responseTime": 53
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "LxA3nmX95jvB3hsoFWCXi",
+            "uid": "o_oTX44es1V3a3405z2Ky",
             "lhsExpr": "req.body.title",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -670,7 +670,7 @@
             "status": "pass"
           },
           {
-            "uid": "J2oLE7PynJSOJz9dQ9bOb",
+            "uid": "RQAFySMK5fYXFKWzDPAVI",
             "lhsExpr": "req.body.description",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -678,7 +678,7 @@
             "status": "pass"
           },
           {
-            "uid": "37LiBLAzzipm1I5On2Ipt",
+            "uid": "71eQ5qRBILWwKF8-JPqu9",
             "lhsExpr": "req.body.pages",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -690,20 +690,20 @@
           {
             "description": "Expect status code to be 500",
             "status": "pass",
-            "uid": "c7dj0GuoeRa0VOmuYl20X"
+            "uid": "IZf9zc3CK0hD3WmTdBXnU"
           },
           {
             "description": "Expect response time to be less than 3500ms",
             "status": "pass",
-            "uid": "5VxkfJdWOJh_-iTvWycdq"
+            "uid": "eWKnCRh9ElGuchTN36_vm"
           },
           {
             "description": "Expect response error to have a clear information",
             "status": "pass",
-            "uid": "oFpacrrFKnwUWzS7oBNDX"
+            "uid": "BtonAV3QD1qn0kWrs83p3"
           }
         ],
-        "runtime": 1.086496289,
+        "runtime": 1.028664986,
         "suitename": "Books/InvalidData",
         "iterationIndex": 0
       },
@@ -713,7 +713,7 @@
         },
         "request": {
           "method": "DELETE",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/2d4bf3ea-2afe-4605-9ac6-537e2e223a60",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/dab4563f-8f14-495f-8780-f7a46bd25af8",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -723,22 +723,22 @@
           "statusText": "No Content",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "date": "Fri, 02 Aug 2024 10:00:52 GMT",
+            "date": "Mon, 05 Aug 2024 00:47:46 GMT",
             "etag": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::fmz9m-1722592852548-b4b161d291a6",
+            "x-vercel-id": "iad1::iad1::shtnm-1722818866722-3ee92da48cf9",
             "connection": "close"
           },
           "data": "",
-          "responseTime": 69
+          "responseTime": 82
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "U2KgxKqM-inVC3N-DPLaM",
+            "uid": "SMZ-Q72hGzudFGSkAiGQn",
             "lhsExpr": "res.body",
             "rhsExpr": "isEmpty",
             "rhsOperand": "",
@@ -750,15 +750,15 @@
           {
             "description": "Expect status code to be 204",
             "status": "pass",
-            "uid": "LGHWqnvu30AkOL8o1wrke"
+            "uid": "dy8NVUVhw89ueZe4jNppV"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "yCelPHktnINFUUr78AH6-"
+            "uid": "6wWZPU0XWzBQ32KWTZ3Be"
           }
         ],
-        "runtime": 0.0742668,
+        "runtime": 0.08765877,
         "suitename": "Books/DeleteTestData",
         "iterationIndex": 0
       }
