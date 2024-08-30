@@ -410,24 +410,24 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "175",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 26 Aug 2024 00:47:07 GMT",
-            "etag": "W/\"af-1vVUoh7nW0EpVTvWF0ZRvT2481s\"",
+            "date": "Fri, 30 Aug 2024 00:59:40 GMT",
+            "etag": "W/\"af-qyYwczGlyOo1xtEcRBo3W94V1hs\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::qbwq9-1724633224857-2f2d90ec5e04",
+            "x-vercel-id": "iad1::iad1::bm6zd-1724979578295-42b3cc7f1807",
             "connection": "close"
           },
           "data": {
             "token": "REDACTED"
           },
-          "responseTime": 2513
+          "responseTime": 2612
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "G2X3kdGpjRdXgKa1rv9K6",
+            "uid": "peEdGdbGabtG8mniNsueb",
             "lhsExpr": "res.body.token",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -439,25 +439,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "DG9k0XJbE_kqb0K1ex1G0"
+            "uid": "UphEd3agFr7MU9zasmLEj"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "Vi71C8Nk-9AdRFor71-bJ"
+            "uid": "pM2R7cNbvSuRdlklC5kgd"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "pdfsZB-NUZachWgzRsLBt"
+            "uid": "WicX1INocnQcP7cCslRE0"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "xmC5Z5VkE3nMd_3cKmbee"
+            "uid": "xq5_UKh6Q9YsTgoGbDIzI"
           }
         ],
-        "runtime": 2.540017982,
+        "runtime": 2.649588194,
         "suitename": "Books/loginAuth",
         "iterationIndex": 0
       },
@@ -472,38 +472,38 @@
             "Authorization": "REDACTED",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"kindheartedly\",\n  \"description\": \"shoe-horn taxicab surprised last yippee until likewise cautious exciting psst\",\n  \"pages\": 1465\n}"
+          "data": "{\n  \"title\": \"on enrich um smoothly polish\",\n  \"description\": \"divalent call brave provided likewise fax pish fatally bonk apply once with\",\n  \"pages\": 34\n}"
         },
         "response": {
           "status": 201,
           "statusText": "Created",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "254",
+            "content-length": "265",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 26 Aug 2024 00:47:08 GMT",
-            "etag": "W/\"fe-+HnIuavsGGT09QR/bRSZzaNx0fQ\"",
+            "date": "Fri, 30 Aug 2024 00:59:42 GMT",
+            "etag": "W/\"109-n49CD8Mgiu0UFvBMAt4YOVILq80\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::v49wz-1724633228869-1d53ae9fddfd",
+            "x-vercel-id": "iad1::iad1::m6q45-1724979582815-10ae508b6085",
             "connection": "close"
           },
           "data": {
-            "id": "f49cefa6-6b28-4a0b-9eae-8d788a2cc4f5",
-            "title": "kindheartedly",
-            "description": "shoe-horn taxicab surprised last yippee until likewise cautious exciting psst",
-            "pages": 1465,
-            "createdat": "2024-08-26T00:47:08.906Z",
-            "updatedat": "2024-08-26T00:47:08.906Z"
+            "id": "a7177efc-5904-4937-af2d-9412456932d6",
+            "title": "on enrich um smoothly polish",
+            "description": "divalent call brave provided likewise fax pish fatally bonk apply once with",
+            "pages": 34,
+            "createdat": "2024-08-30T00:59:42.857Z",
+            "updatedat": "2024-08-30T00:59:42.857Z"
           },
           "responseTime": 115
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "7_NXZk7q79rJL0XbgGdN7",
+            "uid": "FiaQCzQveuChssSfqv1iu",
             "lhsExpr": "res.body.title",
             "rhsExpr": "eq {{bookTitle}}",
             "rhsOperand": "{{bookTitle}}",
@@ -511,7 +511,7 @@
             "status": "pass"
           },
           {
-            "uid": "y7bz6RHe5KAtv4Z-bStkq",
+            "uid": "C7plv98JozjfYIlO-Jkfw",
             "lhsExpr": "res.body.description",
             "rhsExpr": "eq {{bookDesc}}",
             "rhsOperand": "{{bookDesc}}",
@@ -519,7 +519,7 @@
             "status": "pass"
           },
           {
-            "uid": "A-iP7VvaDZSmuH4qqOusa",
+            "uid": "pvotYU6-iubJUa49EsbpY",
             "lhsExpr": "res.body.pages",
             "rhsExpr": "eq {{bookPages}}",
             "rhsOperand": "{{bookPages}}",
@@ -531,30 +531,30 @@
           {
             "description": "Expect status code to be 201",
             "status": "pass",
-            "uid": "oh0APU7Y2fqd8l1Gao7OE"
+            "uid": "4WvmpGKGPLLfA1drE7ox6"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "546wu5gtcORghcZwqKl2s"
+            "uid": "4uXmoPWq87d-19U1thrLZ"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "1VmIvAzNW9X7RSaXdQaDf"
+            "uid": "xmbM2X9z3zpN7sjoN5s4W"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "eT1JquzzsHZ-2HO8Fba00"
+            "uid": "063I3JSou3Lei7g8v00_o"
           },
           {
             "description": "Expect res.body values to match the body request input",
             "status": "pass",
-            "uid": "j2ErkW7RL7GjD8EKSNTcK"
+            "uid": "rix7l9CVBTxJICxQYOjla"
           }
         ],
-        "runtime": 1.666401325,
+        "runtime": 2.049367356,
         "suitename": "Books/CreateABook",
         "iterationIndex": 0
       },
@@ -564,7 +564,7 @@
         },
         "request": {
           "method": "GET",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/f49cefa6-6b28-4a0b-9eae-8d788a2cc4f5",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/a7177efc-5904-4937-af2d-9412456932d6",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -574,26 +574,26 @@
           "statusText": "OK",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "254",
+            "content-length": "265",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 26 Aug 2024 00:47:09 GMT",
-            "etag": "W/\"fe-+HnIuavsGGT09QR/bRSZzaNx0fQ\"",
+            "date": "Fri, 30 Aug 2024 00:59:43 GMT",
+            "etag": "W/\"109-n49CD8Mgiu0UFvBMAt4YOVILq80\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "BYPASS",
-            "x-vercel-id": "iad1::iad1::2r7bw-1724633229030-321caa0cacbe",
+            "x-vercel-id": "iad1::iad1::2w25n-1724979582971-52500e26bb8b",
             "connection": "close"
           },
           "data": {
-            "id": "f49cefa6-6b28-4a0b-9eae-8d788a2cc4f5",
-            "title": "kindheartedly",
-            "description": "shoe-horn taxicab surprised last yippee until likewise cautious exciting psst",
-            "pages": 1465,
-            "createdat": "2024-08-26T00:47:08.906Z",
-            "updatedat": "2024-08-26T00:47:08.906Z"
+            "id": "a7177efc-5904-4937-af2d-9412456932d6",
+            "title": "on enrich um smoothly polish",
+            "description": "divalent call brave provided likewise fax pish fatally bonk apply once with",
+            "pages": 34,
+            "createdat": "2024-08-30T00:59:42.857Z",
+            "updatedat": "2024-08-30T00:59:42.857Z"
           },
-          "responseTime": 166
+          "responseTime": 116
         },
         "error": null,
         "assertionResults": [],
@@ -601,25 +601,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "e3aKYkGMPRrYiHnXrDwZh"
+            "uid": "zP8yyqFnIrJ_vbg7GidpE"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "EIdgrIZ965bs-udty3NjC"
+            "uid": "298UggPPPmm8ZD_u767FL"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "scbPZQkOStxJqb0RS_XfC"
+            "uid": "vUD_tpo8iyQqbr6H2ltEu"
           },
           {
             "description": "Verify the response data",
             "status": "pass",
-            "uid": "9datccD_X6XzukfyPQ9kO"
+            "uid": "1lJ-UaQQ1GCN1iR-2H_aa"
           }
         ],
-        "runtime": 0.17316668,
+        "runtime": 0.127695083,
         "suitename": "Books/GetBook",
         "iterationIndex": 0
       },
@@ -635,8 +635,8 @@
             "content-type": "application/json"
           },
           "data": {
-            "title": "kindheartedly",
-            "description": "shoe-horn taxicab surprised last yippee until likewise cautious exciting psst",
+            "title": "on enrich um smoothly polish",
+            "description": "divalent call brave provided likewise fax pish fatally bonk apply once with",
             "pages": 0
           }
         },
@@ -647,22 +647,22 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "38",
             "content-type": "text/html; charset=utf-8",
-            "date": "Mon, 26 Aug 2024 00:47:10 GMT",
+            "date": "Fri, 30 Aug 2024 00:59:44 GMT",
             "etag": "W/\"26-RourOR9kEZf6mT1ZCEv2wGjOtJM\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::wgmqj-1724633230160-57bc6f846423",
+            "x-vercel-id": "iad1::iad1::d8d96-1724979584380-67f3e5b2b1a2",
             "connection": "close"
           },
           "data": "Pages must be a number and at least 1.",
-          "responseTime": 82
+          "responseTime": 173
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "Dc_MYLJRfOIBQxKZNWN5N",
+            "uid": "hwwBhax1NPt9fwB1teaHl",
             "lhsExpr": "req.body.title",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -670,7 +670,7 @@
             "status": "pass"
           },
           {
-            "uid": "PNuKmoA8XV4f2iR_0BQUp",
+            "uid": "apl8EpI6c2WFtv2LLLEXv",
             "lhsExpr": "req.body.description",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -678,7 +678,7 @@
             "status": "pass"
           },
           {
-            "uid": "QcUoafX30x0XxxLbvWrpe",
+            "uid": "-XlPFyO6L6xdJiEqzZ2cu",
             "lhsExpr": "req.body.pages",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -690,20 +690,20 @@
           {
             "description": "Expect status code to be 500",
             "status": "pass",
-            "uid": "2hA47HqIQJAm3lp51HINU"
+            "uid": "8cJBru0NRcbQcbBdGwKqi"
           },
           {
             "description": "Expect response time to be less than 3500ms",
             "status": "pass",
-            "uid": "hsfcDXtOkOSsHKskxyyvc"
+            "uid": "A74igj8F6rO89Std1_rDZ"
           },
           {
             "description": "Expect response error to have a clear information",
             "status": "pass",
-            "uid": "qqmjUM2e29q2iR-z7I9ZP"
+            "uid": "gkY8BOmXOHuWsa8GgYPYg"
           }
         ],
-        "runtime": 1.060409417,
+        "runtime": 1.487477565,
         "suitename": "Books/InvalidData",
         "iterationIndex": 0
       },
@@ -713,7 +713,7 @@
         },
         "request": {
           "method": "DELETE",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/f49cefa6-6b28-4a0b-9eae-8d788a2cc4f5",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/a7177efc-5904-4937-af2d-9412456932d6",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -723,22 +723,22 @@
           "statusText": "No Content",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "date": "Mon, 26 Aug 2024 00:47:10 GMT",
+            "date": "Fri, 30 Aug 2024 00:59:44 GMT",
             "etag": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::p7tmn-1724633230231-fa8b4d6efb53",
+            "x-vercel-id": "iad1::iad1::whb9k-1724979584556-fcac3b1a9825",
             "connection": "close"
           },
           "data": "",
-          "responseTime": 90
+          "responseTime": 65
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "XWiMX45TX10vZ7GUI6INI",
+            "uid": "-70p7n1DPgHBjDv7JAa69",
             "lhsExpr": "res.body",
             "rhsExpr": "isEmpty",
             "rhsOperand": "",
@@ -750,15 +750,15 @@
           {
             "description": "Expect status code to be 204",
             "status": "pass",
-            "uid": "SZob6j5XPfXhfLciQUxkk"
+            "uid": "CSgS57ATo6PfOSVl3Q25T"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "24F7j04jV0hhle-Tc15S3"
+            "uid": "3QbWDpkTLDhGg9fUQqiQD"
           }
         ],
-        "runtime": 0.095514319,
+        "runtime": 0.074312503,
         "suitename": "Books/DeleteTestData",
         "iterationIndex": 0
       }
