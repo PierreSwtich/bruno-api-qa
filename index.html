@@ -398,10 +398,7 @@
           "headers": {
             "content-type": "application/json"
           },
-          "data": {
-            "username": "REDACTED",
-            "password": "REDACTED"
-          }
+          "data": "{\n  \"username\": \"PierreSwtich\",\n  \"password\": \"Automation2024\"\n}"
         },
         "response": {
           "status": 200,
@@ -410,24 +407,24 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "175",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 06 Jan 2025 00:55:54 GMT",
-            "etag": "W/\"af-S0ySZZlpFrc+p06i251F8pP5lqg\"",
+            "date": "Fri, 10 Jan 2025 01:05:59 GMT",
+            "etag": "W/\"af-ZVDoIhopf4/9u8duVLReEcsVSM4\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::mmm74-1736124951939-5ad2f3637a74",
+            "x-vercel-id": "cle1::iad1::kw92f-1736471156688-b9eed98371ba",
             "connection": "close"
           },
           "data": {
             "token": "REDACTED"
           },
-          "responseTime": 2586
+          "responseTime": 2681
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "0qhotxwvurqjqCBgblRne",
+            "uid": "Q5hlbJKPtUHB-mZWZocYy",
             "lhsExpr": "res.body.token",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -439,25 +436,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "gJy26GhFCnXMqUQ4mVIpT"
+            "uid": "WYJTRKH2J2TOaX065EpM7"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "KWZ7fdamry99rEwpG-gqu"
+            "uid": "3B7Sjuvq4sqP-D1hIeyRZ"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "HdHV5QgLyut3W6ZB9JpF4"
+            "uid": "2IvKGWlBuPnRiofevYsyR"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "QNTC3owMQloFDqb-J9SEB"
+            "uid": "q_pdKtNIokYu6kKIHe33t"
           }
         ],
-        "runtime": 2.621622319,
+        "runtime": 2.721773168,
         "suitename": "Books/loginAuth",
         "iterationIndex": 0
       },
@@ -472,38 +469,38 @@
             "Authorization": "REDACTED",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"shakily because confront that tiny\",\n  \"description\": \"cultivate blah elapse sleepily oval phew mellow as gratefully down sweat founder novel gadzooks honored boo youthfully cruelly whenever yuck deal male aha\",\n  \"pages\": 509\n}"
+          "data": "{\n  \"title\": \"mortally why lollipop\",\n  \"description\": \"fervently tart cramp under south oof fooey longingly caramel judicious considering whoever bide duh section etch gust absent spill once\",\n  \"pages\": 311\n}"
         },
         "response": {
           "status": 201,
           "statusText": "Created",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "351",
+            "content-length": "319",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 06 Jan 2025 00:55:56 GMT",
-            "etag": "W/\"15f-SlUjrbUnTRJEbFOJEbtgpxAXqPo\"",
+            "date": "Fri, 10 Jan 2025 01:06:01 GMT",
+            "etag": "W/\"13f-fnjX71+MAhhHN64wuJJwnxZA8rA\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::vqm4k-1736124956125-50249b08c054",
+            "x-vercel-id": "cle1::iad1::gwfd8-1736471160962-f700cb953623",
             "connection": "close"
           },
           "data": {
-            "id": "34139662-68eb-489f-9b74-9bfd2ad07d1b",
-            "title": "shakily because confront that tiny",
-            "description": "cultivate blah elapse sleepily oval phew mellow as gratefully down sweat founder novel gadzooks honored boo youthfully cruelly whenever yuck deal male aha",
-            "pages": 509,
-            "createdat": "2025-01-06T00:55:56.170Z",
-            "updatedat": "2025-01-06T00:55:56.170Z"
+            "id": "3c838317-a6f5-4189-9bf0-650cb0efd798",
+            "title": "mortally why lollipop",
+            "description": "fervently tart cramp under south oof fooey longingly caramel judicious considering whoever bide duh section etch gust absent spill once",
+            "pages": 311,
+            "createdat": "2025-01-10T01:06:01.004Z",
+            "updatedat": "2025-01-10T01:06:01.004Z"
           },
-          "responseTime": 142
+          "responseTime": 156
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "KjSJROWIyJEWNS_Dbc9bl",
+            "uid": "MRJACzIzajkuc98txlnSM",
             "lhsExpr": "res.body.title",
             "rhsExpr": "eq {{bookTitle}}",
             "rhsOperand": "{{bookTitle}}",
@@ -511,7 +508,7 @@
             "status": "pass"
           },
           {
-            "uid": "3FVUCtXNrGIxBifzF97ee",
+            "uid": "7FzwtraBpclYcnxhOo3Mp",
             "lhsExpr": "res.body.description",
             "rhsExpr": "eq {{bookDesc}}",
             "rhsOperand": "{{bookDesc}}",
@@ -519,7 +516,7 @@
             "status": "pass"
           },
           {
-            "uid": "zNmszPFT63RRmVS_A3iBy",
+            "uid": "9lXibpqrR8JpnpAkHre4g",
             "lhsExpr": "res.body.pages",
             "rhsExpr": "eq {{bookPages}}",
             "rhsOperand": "{{bookPages}}",
@@ -531,30 +528,30 @@
           {
             "description": "Expect status code to be 201",
             "status": "pass",
-            "uid": "s7zu0E535v2anbvr6yS8B"
+            "uid": "-dwwRSXE1JWccCqf2luGy"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "0dl5DJBUYbh9A3sHqi0Pc"
+            "uid": "4amiuL_eJR3DrqJRm34UE"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "LbkWR7UrzZresFgh0NsfT"
+            "uid": "tClapWjZK0aUfgXpuC6tx"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "M_CvLpXUNOhIVSoHz1ouG"
+            "uid": "VmM2nx_sBPDgqEvrkueAm"
           },
           {
             "description": "Expect res.body values to match the body request input",
             "status": "pass",
-            "uid": "Y9C8cYWRppCyBux3Gge0W"
+            "uid": "w0mmWQS6FpPzIgeI1WyfP"
           }
         ],
-        "runtime": 1.767532202,
+        "runtime": 1.738818702,
         "suitename": "Books/CreateABook",
         "iterationIndex": 0
       },
@@ -564,7 +561,7 @@
         },
         "request": {
           "method": "GET",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/34139662-68eb-489f-9b74-9bfd2ad07d1b",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/3c838317-a6f5-4189-9bf0-650cb0efd798",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -574,26 +571,26 @@
           "statusText": "OK",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "351",
+            "content-length": "319",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 06 Jan 2025 00:55:56 GMT",
-            "etag": "W/\"15f-SlUjrbUnTRJEbFOJEbtgpxAXqPo\"",
+            "date": "Fri, 10 Jan 2025 01:06:01 GMT",
+            "etag": "W/\"13f-fnjX71+MAhhHN64wuJJwnxZA8rA\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "BYPASS",
-            "x-vercel-id": "cle1::iad1::6xfwt-1736124956264-06a4b00bda44",
+            "x-vercel-id": "cle1::iad1::6nb87-1736471161102-1bb7b2f1f3da",
             "connection": "close"
           },
           "data": {
-            "id": "34139662-68eb-489f-9b74-9bfd2ad07d1b",
-            "title": "shakily because confront that tiny",
-            "description": "cultivate blah elapse sleepily oval phew mellow as gratefully down sweat founder novel gadzooks honored boo youthfully cruelly whenever yuck deal male aha",
-            "pages": 509,
-            "createdat": "2025-01-06T00:55:56.170Z",
-            "updatedat": "2025-01-06T00:55:56.170Z"
+            "id": "3c838317-a6f5-4189-9bf0-650cb0efd798",
+            "title": "mortally why lollipop",
+            "description": "fervently tart cramp under south oof fooey longingly caramel judicious considering whoever bide duh section etch gust absent spill once",
+            "pages": 311,
+            "createdat": "2025-01-10T01:06:01.004Z",
+            "updatedat": "2025-01-10T01:06:01.004Z"
           },
-          "responseTime": 126
+          "responseTime": 129
         },
         "error": null,
         "assertionResults": [],
@@ -601,25 +598,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "yfTv1KYqqb3EXdc63eNHp"
+            "uid": "AExO5x4kNMfM8FkWa4_ai"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "G_8C-z_4DoaUPSF0P2RQo"
+            "uid": "SqdqjUBC32rrKD3G0nBU7"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "nd5afoH1YRqVDoO7v3PNl"
+            "uid": "g8Zgo8rZBHPGAz8tQoehZ"
           },
           {
             "description": "Verify the response data",
             "status": "pass",
-            "uid": "ayeB1oKlQakJPAHr-_Ojt"
+            "uid": "paUUK_BNScdaDN_cP_xon"
           }
         ],
-        "runtime": 0.133325099,
+        "runtime": 0.136052611,
         "suitename": "Books/GetBook",
         "iterationIndex": 0
       },
@@ -634,11 +631,7 @@
             "Authorization": "REDACTED",
             "content-type": "application/json"
           },
-          "data": {
-            "title": "shakily because confront that tiny",
-            "description": "cultivate blah elapse sleepily oval phew mellow as gratefully down sweat founder novel gadzooks honored boo youthfully cruelly whenever yuck deal male aha",
-            "pages": 0
-          }
+          "data": "{\n  \"title\": \"mortally why lollipop\",\n  \"description\": \"fervently tart cramp under south oof fooey longingly caramel judicious considering whoever bide duh section etch gust absent spill once\",\n  \"pages\": 0\n}"
         },
         "response": {
           "status": 400,
@@ -647,22 +640,22 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "38",
             "content-type": "text/html; charset=utf-8",
-            "date": "Mon, 06 Jan 2025 00:55:57 GMT",
+            "date": "Fri, 10 Jan 2025 01:06:02 GMT",
             "etag": "W/\"26-RourOR9kEZf6mT1ZCEv2wGjOtJM\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::ttfwf-1736124957475-ddd2dcc3f12f",
+            "x-vercel-id": "cle1::iad1::dkql5-1736471162291-631e6b5f3f15",
             "connection": "close"
           },
           "data": "response content redacted",
-          "responseTime": 96
+          "responseTime": 83
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "s98gCFlXSY-RBefBZ0-X7",
+            "uid": "J2FjNBZgQXnWGCg_134o6",
             "lhsExpr": "req.body.title",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -670,7 +663,7 @@
             "status": "pass"
           },
           {
-            "uid": "JkxVMvy2t7qPQkgbCUcHV",
+            "uid": "nWR7Wb1sW9wZSytahBYsi",
             "lhsExpr": "req.body.description",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -678,7 +671,7 @@
             "status": "pass"
           },
           {
-            "uid": "AHgx1eH58zedFFmjDPy4x",
+            "uid": "n1zJK-WOF8ek29lvbx96G",
             "lhsExpr": "req.body.pages",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -690,20 +683,20 @@
           {
             "description": "Expect status code to be 500",
             "status": "pass",
-            "uid": "aXQ81xJIrBW_OSBWX-VTp"
+            "uid": "2QRZXfK3zDN1aCkeYBkVW"
           },
           {
             "description": "Expect response time to be less than 3500ms",
             "status": "pass",
-            "uid": "f9uehtMKre1SPNKyEWHgv"
+            "uid": "QTellQGu20dRUDTMFRsvE"
           },
           {
             "description": "Expect response error to have a clear information",
             "status": "pass",
-            "uid": "W9IutVrCk1fSa1f-yIt2U"
+            "uid": "T1TJxLIFW3bPw87lc530C"
           }
         ],
-        "runtime": 1.18288166,
+        "runtime": 1.156755889,
         "suitename": "Books/InvalidData",
         "iterationIndex": 0
       },
@@ -713,7 +706,7 @@
         },
         "request": {
           "method": "DELETE",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/34139662-68eb-489f-9b74-9bfd2ad07d1b",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/3c838317-a6f5-4189-9bf0-650cb0efd798",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -723,22 +716,22 @@
           "statusText": "No Content",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "date": "Mon, 06 Jan 2025 00:55:57 GMT",
+            "date": "Fri, 10 Jan 2025 01:06:02 GMT",
             "etag": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::z4tsn-1736124957620-2277918c66f1",
+            "x-vercel-id": "cle1::iad1::tzwk2-1736471162382-86508e713638",
             "connection": "close"
           },
           "data": "",
-          "responseTime": 149
+          "responseTime": 96
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "OuoPD9X63zE_LykR7yKNN",
+            "uid": "CuXrWVXIg0_qKPlUPVOh8",
             "lhsExpr": "res.body",
             "rhsExpr": "isEmpty",
             "rhsOperand": "",
@@ -750,15 +743,15 @@
           {
             "description": "Expect status code to be 204",
             "status": "pass",
-            "uid": "dLcgFFUi8MKxWAfPimPAa"
+            "uid": "LQDUb9PxR2ebXd1G4n5x9"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "UeHWpl-_rX9HCqw6NHYiG"
+            "uid": "KE0wH9EMwSFQWUymOV-_q"
           }
         ],
-        "runtime": 0.154600076,
+        "runtime": 0.102550699,
         "suitename": "Books/DeleteTestData",
         "iterationIndex": 0
       }
