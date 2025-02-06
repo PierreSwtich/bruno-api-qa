@@ -384,8 +384,8 @@
       "passedAssertions": 8,
       "failedAssertions": 0,
       "totalTests": 18,
-      "passedTests": 18,
-      "failedTests": 0
+      "passedTests": 17,
+      "failedTests": 1
     },
     "results": [
       {
@@ -407,24 +407,24 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "175",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 27 Jan 2025 00:53:18 GMT",
-            "etag": "W/\"af-GJUGqAxWm6op2qaPsZ4jSmA6kzM\"",
+            "date": "Thu, 06 Feb 2025 18:28:46 GMT",
+            "etag": "W/\"af-PaaPb+Z1Gj+eU852IXB9jj9WTj0\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "pdx1::iad1::nczjf-1737939196393-efbd2b71ebc8",
+            "x-vercel-id": "sfo1::iad1::f8q6w-1738866522919-021ddeebbdaa",
             "connection": "close"
           },
           "data": {
-            "token": "REDACTED"
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBpZXJyZVN3dGljaCIsImlhdCI6MTczODg2NjUyNiwiZXhwIjoxNzM4ODcwMTI2fQ.8Y4b23uXX4GiMkZh7MUn-SneD05BFW1aqJ88-rvrpQo"
           },
-          "responseTime": 2507
+          "responseTime": 3944
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "6PKLB7jlH0aGeaE3Bb2vk",
+            "uid": "2RTRgZdFXVaEUn7scy6fq",
             "lhsExpr": "res.body.token",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -434,27 +434,30 @@
         ],
         "testResults": [
           {
-            "description": "Expect status code to be 200",
-            "status": "pass",
-            "uid": "G1V_MFe1cygAPp3_-CL0x"
+            "description": "Expect response time to be below 3500ms",
+            "status": "fail",
+            "error": "expected 3944 to be below 3500",
+            "actual": 3944,
+            "expected": 3500,
+            "uid": "bEROW1brBZLGM-C0n_8qa"
           },
           {
-            "description": "Expect response time to be below 3500ms",
+            "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "Nnsc4aGVOBl_uik8Ww4_g"
+            "uid": "lHM_w3rO21DozZMHGBdJf"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "NWjItdnicnT2iOBzPikVM"
+            "uid": "Xj4d1de6NvV6ThqljeBOn"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "VH54amogkFcWA5hmhxOqr"
+            "uid": "9R4fnv6BrAhWQHvx6bbMP"
           }
         ],
-        "runtime": 2.544602321,
+        "runtime": 3.986004831,
         "suitename": "Books/loginAuth",
         "iterationIndex": 0
       },
@@ -466,41 +469,41 @@
           "method": "POST",
           "url": "https://qa-simple-book-api.vercel.app/api/books",
           "headers": {
-            "Authorization": "REDACTED",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBpZXJyZVN3dGljaCIsImlhdCI6MTczODg2NjUyNiwiZXhwIjoxNzM4ODcwMTI2fQ.8Y4b23uXX4GiMkZh7MUn-SneD05BFW1aqJ88-rvrpQo",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"ecosystem\",\n  \"description\": \"some amid gadzooks as ouch provided pervade till mysteriously likewise overconfidently second-hand blond once broadly now ah excitable off deduct unlike boohoo lamb accredit before\",\n  \"pages\": 1154\n}"
+          "data": "{\n  \"title\": \"pish engorge\",\n  \"description\": \"slope pet fishnet blissfully recharge commotion amaze plus upon nor when testimony valiantly ha which gosh cliff quince\",\n  \"pages\": 716\n}"
         },
         "response": {
           "status": 201,
           "statusText": "Created",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "353",
+            "content-length": "294",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 27 Jan 2025 00:53:20 GMT",
-            "etag": "W/\"161-RknmzccTMCP7HCd+8NblrfcOGfU\"",
+            "date": "Thu, 06 Feb 2025 18:28:48 GMT",
+            "etag": "W/\"126-Mm8otM5TmtcameUtfxmnNs7yliU\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "pdx1::iad1::nqc44-1737939200711-538fe988a8de",
+            "x-vercel-id": "sfo1::iad1::95rnt-1738866528390-1d1d279e2367",
             "connection": "close"
           },
           "data": {
-            "id": "d31f0d74-e23e-45ed-a31a-4968d3fd2ab5",
-            "title": "ecosystem",
-            "description": "some amid gadzooks as ouch provided pervade till mysteriously likewise overconfidently second-hand blond once broadly now ah excitable off deduct unlike boohoo lamb accredit before",
-            "pages": 1154,
-            "createdat": "2025-01-27T00:53:20.882Z",
-            "updatedat": "2025-01-27T00:53:20.882Z"
+            "id": "00682af0-7e27-4f1e-bcb8-a26c490ed99d",
+            "title": "pish engorge",
+            "description": "slope pet fishnet blissfully recharge commotion amaze plus upon nor when testimony valiantly ha which gosh cliff quince",
+            "pages": 716,
+            "createdat": "2025-02-06T18:28:48.468Z",
+            "updatedat": "2025-02-06T18:28:48.468Z"
           },
-          "responseTime": 575
+          "responseTime": 215
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "fCT6jpIc8ux_dKZ15IG9I",
+            "uid": "PnloT4hbPsaRnU2af9JjL",
             "lhsExpr": "res.body.title",
             "rhsExpr": "eq {{bookTitle}}",
             "rhsOperand": "{{bookTitle}}",
@@ -508,7 +511,7 @@
             "status": "pass"
           },
           {
-            "uid": "OZ_x6o4zjisAC_xAVuNb-",
+            "uid": "qRWk6Vocwrru-sg5BlOt3",
             "lhsExpr": "res.body.description",
             "rhsExpr": "eq {{bookDesc}}",
             "rhsOperand": "{{bookDesc}}",
@@ -516,7 +519,7 @@
             "status": "pass"
           },
           {
-            "uid": "_O02YWXv8RHIMALWg5TB7",
+            "uid": "8CtZqGGjpZFwx8rlz1MvN",
             "lhsExpr": "res.body.pages",
             "rhsExpr": "eq {{bookPages}}",
             "rhsOperand": "{{bookPages}}",
@@ -528,30 +531,30 @@
           {
             "description": "Expect status code to be 201",
             "status": "pass",
-            "uid": "THTPhe1rYfTlDiVpXgbeY"
+            "uid": "g6ItZql_8c_BoO_09O9ES"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "399MJ1tbSAdSgYmBy4Xjz"
+            "uid": "iI6GR_dqb51OU5IYn1VjF"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "Dflto3sSvne10mRglC2iF"
+            "uid": "htuZvw51ibasniCPhk89V"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "ajHRLaj7B6yoetXMInKnf"
+            "uid": "iuYQLKjU6p_AINC_srreg"
           },
           {
             "description": "Expect res.body values to match the body request input",
             "status": "pass",
-            "uid": "jlTwWybPS7490TRbcU0c5"
+            "uid": "6rg0J-_qDaSNNU3OCM3c4"
           }
         ],
-        "runtime": 2.1460867,
+        "runtime": 1.798696276,
         "suitename": "Books/CreateABook",
         "iterationIndex": 0
       },
@@ -561,9 +564,9 @@
         },
         "request": {
           "method": "GET",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/d31f0d74-e23e-45ed-a31a-4968d3fd2ab5",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/00682af0-7e27-4f1e-bcb8-a26c490ed99d",
           "headers": {
-            "Authorization": "REDACTED"
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBpZXJyZVN3dGljaCIsImlhdCI6MTczODg2NjUyNiwiZXhwIjoxNzM4ODcwMTI2fQ.8Y4b23uXX4GiMkZh7MUn-SneD05BFW1aqJ88-rvrpQo"
           }
         },
         "response": {
@@ -571,26 +574,26 @@
           "statusText": "OK",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "353",
+            "content-length": "294",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 27 Jan 2025 00:53:21 GMT",
-            "etag": "W/\"161-RknmzccTMCP7HCd+8NblrfcOGfU\"",
+            "date": "Thu, 06 Feb 2025 18:28:48 GMT",
+            "etag": "W/\"126-Mm8otM5TmtcameUtfxmnNs7yliU\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "BYPASS",
-            "x-vercel-id": "sfo1::iad1::j4xc6-1737939201055-3aa1fb4bf9a5",
+            "x-vercel-id": "sfo1::iad1::q7gw5-1738866528644-11d2796589c5",
             "connection": "close"
           },
           "data": {
-            "id": "d31f0d74-e23e-45ed-a31a-4968d3fd2ab5",
-            "title": "ecosystem",
-            "description": "some amid gadzooks as ouch provided pervade till mysteriously likewise overconfidently second-hand blond once broadly now ah excitable off deduct unlike boohoo lamb accredit before",
-            "pages": 1154,
-            "createdat": "2025-01-27T00:53:20.882Z",
-            "updatedat": "2025-01-27T00:53:20.882Z"
+            "id": "00682af0-7e27-4f1e-bcb8-a26c490ed99d",
+            "title": "pish engorge",
+            "description": "slope pet fishnet blissfully recharge commotion amaze plus upon nor when testimony valiantly ha which gosh cliff quince",
+            "pages": 716,
+            "createdat": "2025-02-06T18:28:48.468Z",
+            "updatedat": "2025-02-06T18:28:48.468Z"
           },
-          "responseTime": 196
+          "responseTime": 224
         },
         "error": null,
         "assertionResults": [],
@@ -598,25 +601,25 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "ASKWjs_06o-bRGGD8yI0A"
+            "uid": "SwWiQLElNcsT7O-VkhCZy"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "p3EYHTT1VUnqlVEA86fwT"
+            "uid": "w1CWcyvArh8bEgENFImJz"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "Sk9s7_7L8hOqxK0RZMR6D"
+            "uid": "2ox5dToXT_FDdOi-iIKXu"
           },
           {
             "description": "Verify the response data",
             "status": "pass",
-            "uid": "NBvC80xxyOwthuyPpUVSU"
+            "uid": "d3a8Pd7MQh0JKoooN19cc"
           }
         ],
-        "runtime": 0.202425803,
+        "runtime": 0.233421879,
         "suitename": "Books/GetBook",
         "iterationIndex": 0
       },
@@ -628,10 +631,10 @@
           "method": "POST",
           "url": "https://qa-simple-book-api.vercel.app/api/books",
           "headers": {
-            "Authorization": "REDACTED",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBpZXJyZVN3dGljaCIsImlhdCI6MTczODg2NjUyNiwiZXhwIjoxNzM4ODcwMTI2fQ.8Y4b23uXX4GiMkZh7MUn-SneD05BFW1aqJ88-rvrpQo",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"ecosystem\",\n  \"description\": \"some amid gadzooks as ouch provided pervade till mysteriously likewise overconfidently second-hand blond once broadly now ah excitable off deduct unlike boohoo lamb accredit before\",\n  \"pages\": 0\n}"
+          "data": "{\n  \"title\": \"pish engorge\",\n  \"description\": \"slope pet fishnet blissfully recharge commotion amaze plus upon nor when testimony valiantly ha which gosh cliff quince\",\n  \"pages\": 0\n}"
         },
         "response": {
           "status": 400,
@@ -640,22 +643,22 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "38",
             "content-type": "text/html; charset=utf-8",
-            "date": "Mon, 27 Jan 2025 00:53:22 GMT",
+            "date": "Thu, 06 Feb 2025 18:28:50 GMT",
             "etag": "W/\"26-RourOR9kEZf6mT1ZCEv2wGjOtJM\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "sfo1::iad1::vr8k8-1737939202319-c5d4188dfa88",
+            "x-vercel-id": "sfo1::iad1::wzxwd-1738866529925-022a8f260987",
             "connection": "close"
           },
           "data": "response content redacted",
-          "responseTime": 188
+          "responseTime": 312
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "aGWj9Mlk-4vh05aRxg81-",
+            "uid": "PiI2-zBBP3MCKEw1zJ0c1",
             "lhsExpr": "req.body.title",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -663,7 +666,7 @@
             "status": "pass"
           },
           {
-            "uid": "_dFCzCul8IPF7lA-tP_Bf",
+            "uid": "aguR8gTSmFGvSsF4GSSSy",
             "lhsExpr": "req.body.description",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -671,7 +674,7 @@
             "status": "pass"
           },
           {
-            "uid": "21QsCjGhQEdlzPB10bVnk",
+            "uid": "38PGtYI7aTMmj0_1gpM4B",
             "lhsExpr": "req.body.pages",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -683,20 +686,20 @@
           {
             "description": "Expect status code to be 500",
             "status": "pass",
-            "uid": "_Hn_qZlymL0EmBiY_n3Gb"
+            "uid": "xASKSlxjbChBdTtL08lzO"
           },
           {
             "description": "Expect response time to be less than 3500ms",
             "status": "pass",
-            "uid": "PTAiByYIJcHt5dOt_BzK1"
+            "uid": "aH62sHTPPdeGQGXmlXxw8"
           },
           {
             "description": "Expect response error to have a clear information",
             "status": "pass",
-            "uid": "12VqIkSO-SpcW966V4sru"
+            "uid": "K5aBwf9bhMUMWzXI_4rSV"
           }
         ],
-        "runtime": 1.245354974,
+        "runtime": 1.375119968,
         "suitename": "Books/InvalidData",
         "iterationIndex": 0
       },
@@ -706,9 +709,9 @@
         },
         "request": {
           "method": "DELETE",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/d31f0d74-e23e-45ed-a31a-4968d3fd2ab5",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/00682af0-7e27-4f1e-bcb8-a26c490ed99d",
           "headers": {
-            "Authorization": "REDACTED"
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBpZXJyZVN3dGljaCIsImlhdCI6MTczODg2NjUyNiwiZXhwIjoxNzM4ODcwMTI2fQ.8Y4b23uXX4GiMkZh7MUn-SneD05BFW1aqJ88-rvrpQo"
           }
         },
         "response": {
@@ -716,22 +719,22 @@
           "statusText": "No Content",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "date": "Mon, 27 Jan 2025 00:53:22 GMT",
+            "date": "Thu, 06 Feb 2025 18:28:50 GMT",
             "etag": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "pdx1::iad1::dhqkd-1737939202567-5be6a8449d26",
+            "x-vercel-id": "sfo1::iad1::8pppw-1738866530267-82bce164cb0f",
             "connection": "close"
           },
           "data": "",
-          "responseTime": 260
+          "responseTime": 235
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "t0IScvx3et5t5KgI2NWFN",
+            "uid": "8FVtGJnZT9ZZzRjjjqUQ9",
             "lhsExpr": "res.body",
             "rhsExpr": "isEmpty",
             "rhsOperand": "",
@@ -743,15 +746,15 @@
           {
             "description": "Expect status code to be 204",
             "status": "pass",
-            "uid": "J0O_O2orTEgvqdsDIGRZB"
+            "uid": "2zZuf60PBtBRm_yMm-QJK"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "4kYAreTznq8qf0pXWdKot"
+            "uid": "-8EjU3BG_9XIHEUHJ0Tp4"
           }
         ],
-        "runtime": 0.265861657,
+        "runtime": 0.243270015,
         "suitename": "Books/DeleteTestData",
         "iterationIndex": 0
       }
