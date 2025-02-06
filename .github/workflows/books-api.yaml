@@ -48,6 +48,7 @@ jobs:
         run: mv API/index.html API/results/index.html
           
       - name: Sanitize report
+        if: always()
         run: node sanitizeReport.js
         working-directory: ./API
 
