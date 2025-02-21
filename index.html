@@ -380,6 +380,7 @@
       "totalRequests": 5,
       "passedRequests": 5,
       "failedRequests": 0,
+      "skippedRequests": 0,
       "totalAssertions": 8,
       "passedAssertions": 8,
       "failedAssertions": 0,
@@ -407,24 +408,24 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "175",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 17 Feb 2025 00:55:39 GMT",
-            "etag": "W/\"af-4KWbWvrMbEAfnIQz+r8iP4j/+8Q\"",
+            "date": "Fri, 21 Feb 2025 01:04:58 GMT",
+            "etag": "W/\"af-Lnirqpa2kUkHpjE0lMaEu7uHexE\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::hlnmd-1739753736380-83c18a9a8139",
+            "x-vercel-id": "sfo1::iad1::bqt7z-1740099895897-4aa94d8aae24",
             "connection": "close"
           },
           "data": {
             "token": "REDACTED"
           },
-          "responseTime": 2939
+          "responseTime": 3094
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "nugVamaE94o6vLc-WxRpB",
+            "uid": "XPHKeW2VVwmz43tSQheZ6",
             "lhsExpr": "res.body.token",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -436,25 +437,26 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "dTQugVKVXzR7Mkdpbs3nF"
+            "uid": "_ziqajJKEmkqpo1-iT7v3"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "zOw1TUYoWyGGGpHI-cSk2"
+            "uid": "09eJYNe--rvf05kLJbIU5"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "xKFlzROt1zy9ILrDDD52i"
+            "uid": "TlZLvW5lCrVaa22Pn9pbh"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "sQNxC2qQ8gcA6ixeCFiB-"
+            "uid": "GlbQJnbaAQ3lKBgDtt5f4"
           }
         ],
-        "runtime": 2.976730787,
+        "shouldStopRunnerExecution": false,
+        "runtime": 3.134832611,
         "suitename": "Books/loginAuth",
         "iterationIndex": 0
       },
@@ -469,38 +471,38 @@
             "Authorization": "REDACTED",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"forked ah brr plier\",\n  \"description\": \"mercerize epauliere net agonizing architect league repository um honored yum\",\n  \"pages\": 311\n}"
+          "data": "{\n  \"title\": \"righteously when huzzah\",\n  \"description\": \"close suddenly input smolt indeed after cutting reluctantly loudly the rightfully below viciously supposing sty tempting inwardly quintuple fooey clear-cut serialize gregarious\",\n  \"pages\": 1080\n}"
         },
         "response": {
           "status": 201,
           "statusText": "Created",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "258",
+            "content-length": "363",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 17 Feb 2025 00:55:40 GMT",
-            "etag": "W/\"102-t4EbjIvfFILvvA1LvLJD997u2As\"",
+            "date": "Fri, 21 Feb 2025 01:05:00 GMT",
+            "etag": "W/\"16b-yaked/OjwdNqw+UXKQw8bbEutYE\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::cb5h5-1739753740850-41b77d04fd08",
+            "x-vercel-id": "sfo1::iad1::82tz2-1740099900532-6124664f936d",
             "connection": "close"
           },
           "data": {
-            "id": "10687324-5127-40f6-ac1e-f3afbecc6d66",
-            "title": "forked ah brr plier",
-            "description": "mercerize epauliere net agonizing architect league repository um honored yum",
-            "pages": 311,
-            "createdat": "2025-02-17T00:55:40.894Z",
-            "updatedat": "2025-02-17T00:55:40.894Z"
+            "id": "6d2715e5-7186-41e2-b14e-facafa0fee72",
+            "title": "righteously when huzzah",
+            "description": "close suddenly input smolt indeed after cutting reluctantly loudly the rightfully below viciously supposing sty tempting inwardly quintuple fooey clear-cut serialize gregarious",
+            "pages": 1080,
+            "createdat": "2025-02-21T01:05:00.605Z",
+            "updatedat": "2025-02-21T01:05:00.605Z"
           },
-          "responseTime": 127
+          "responseTime": 149
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "SBYcISswoGE6oY_3HXqSP",
+            "uid": "i8SzqKAS6_8eG7GzTkIrS",
             "lhsExpr": "res.body.title",
             "rhsExpr": "eq {{bookTitle}}",
             "rhsOperand": "{{bookTitle}}",
@@ -508,7 +510,7 @@
             "status": "pass"
           },
           {
-            "uid": "Ou-K5kDUqJK6XKeOq18-5",
+            "uid": "yt_WSBQWofAH3M9kwmEWb",
             "lhsExpr": "res.body.description",
             "rhsExpr": "eq {{bookDesc}}",
             "rhsOperand": "{{bookDesc}}",
@@ -516,7 +518,7 @@
             "status": "pass"
           },
           {
-            "uid": "M3YokoODSVdFrRBXH8KPY",
+            "uid": "BKZw1IfDQ_ut_Ku9Jgir3",
             "lhsExpr": "res.body.pages",
             "rhsExpr": "eq {{bookPages}}",
             "rhsOperand": "{{bookPages}}",
@@ -528,30 +530,31 @@
           {
             "description": "Expect status code to be 201",
             "status": "pass",
-            "uid": "d5qN9k8O7Kj1m14AAzgt9"
+            "uid": "MuHPErAitIp8PIJmGCuQX"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "HL_FQI76QnV2wZ3kChvbX"
+            "uid": "5g7_sdi-K7gictCFJbQqe"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "9YgCKXjJlbnURkUnSbJI7"
+            "uid": "fmKUCQtCCTlj4M8vzM-nG"
           },
           {
             "description": "Book id is defined",
             "status": "pass",
-            "uid": "HHjHvD6ILe3Ku90iz3zt8"
+            "uid": "ipDUGNxHfiP2SKmrX4bCA"
           },
           {
             "description": "Expect res.body values to match the body request input",
             "status": "pass",
-            "uid": "TQ-9UvJfbMMtxIrsG5KMn"
+            "uid": "aS0WALaHLsnT3lZXqvGHH"
           }
         ],
-        "runtime": 1.71813986,
+        "shouldStopRunnerExecution": false,
+        "runtime": 1.715639975,
         "suitename": "Books/CreateABook",
         "iterationIndex": 0
       },
@@ -561,7 +564,7 @@
         },
         "request": {
           "method": "GET",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/10687324-5127-40f6-ac1e-f3afbecc6d66",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/6d2715e5-7186-41e2-b14e-facafa0fee72",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -571,26 +574,26 @@
           "statusText": "OK",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "258",
+            "content-length": "363",
             "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 17 Feb 2025 00:55:41 GMT",
-            "etag": "W/\"102-t4EbjIvfFILvvA1LvLJD997u2As\"",
+            "date": "Fri, 21 Feb 2025 01:05:00 GMT",
+            "etag": "W/\"16b-yaked/OjwdNqw+UXKQw8bbEutYE\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "BYPASS",
-            "x-vercel-id": "cle1::iad1::9mklw-1739753740986-161ef3b65b8c",
+            "x-vercel-id": "sfo1::iad1::cwl4s-1740099900697-7ac0e705a4e6",
             "connection": "close"
           },
           "data": {
-            "id": "10687324-5127-40f6-ac1e-f3afbecc6d66",
-            "title": "forked ah brr plier",
-            "description": "mercerize epauliere net agonizing architect league repository um honored yum",
-            "pages": 311,
-            "createdat": "2025-02-17T00:55:40.894Z",
-            "updatedat": "2025-02-17T00:55:40.894Z"
+            "id": "6d2715e5-7186-41e2-b14e-facafa0fee72",
+            "title": "righteously when huzzah",
+            "description": "close suddenly input smolt indeed after cutting reluctantly loudly the rightfully below viciously supposing sty tempting inwardly quintuple fooey clear-cut serialize gregarious",
+            "pages": 1080,
+            "createdat": "2025-02-21T01:05:00.605Z",
+            "updatedat": "2025-02-21T01:05:00.605Z"
           },
-          "responseTime": 129
+          "responseTime": 290
         },
         "error": null,
         "assertionResults": [],
@@ -598,25 +601,26 @@
           {
             "description": "Expect status code to be 200",
             "status": "pass",
-            "uid": "sIwN24FABoZITtaVXPtAq"
+            "uid": "yOwc8DRgnReigSoRmtc8m"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "CHQtXANHh8FP6WtoDCko0"
+            "uid": "lU4vYxh0v6JDgNswKm5O9"
           },
           {
             "description": "Expect res.body to be an object",
             "status": "pass",
-            "uid": "eLnGijuOaJK97QSwLi9QE"
+            "uid": "3M4UrGyoUkj_SQC1BMWKW"
           },
           {
             "description": "Verify the response data",
             "status": "pass",
-            "uid": "UOUjXuD5TDF1dzVAesfDr"
+            "uid": "KA7j_qWFE7ggdrZbykpF-"
           }
         ],
-        "runtime": 0.136987063,
+        "shouldStopRunnerExecution": false,
+        "runtime": 0.297466958,
         "suitename": "Books/GetBook",
         "iterationIndex": 0
       },
@@ -631,7 +635,7 @@
             "Authorization": "REDACTED",
             "content-type": "application/json"
           },
-          "data": "{\n  \"title\": \"forked ah brr plier\",\n  \"description\": \"mercerize epauliere net agonizing architect league repository um honored yum\",\n  \"pages\": 0\n}"
+          "data": "{\n  \"title\": \"righteously when huzzah\",\n  \"description\": \"close suddenly input smolt indeed after cutting reluctantly loudly the rightfully below viciously supposing sty tempting inwardly quintuple fooey clear-cut serialize gregarious\",\n  \"pages\": 0\n}"
         },
         "response": {
           "status": 400,
@@ -640,22 +644,22 @@
             "cache-control": "public, max-age=0, must-revalidate",
             "content-length": "38",
             "content-type": "text/html; charset=utf-8",
-            "date": "Mon, 17 Feb 2025 00:55:42 GMT",
+            "date": "Fri, 21 Feb 2025 01:05:02 GMT",
             "etag": "W/\"26-RourOR9kEZf6mT1ZCEv2wGjOtJM\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::r9chq-1739753742202-ea746ffaadda",
+            "x-vercel-id": "sfo1::iad1::nkkxm-1740099902024-ca889052cbb3",
             "connection": "close"
           },
           "data": "response content redacted",
-          "responseTime": 96
+          "responseTime": 124
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "iKt0nUpAC-amk_xHJhmBK",
+            "uid": "5JsiJuUg0tdjnF3CoSj3H",
             "lhsExpr": "req.body.title",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -663,7 +667,7 @@
             "status": "pass"
           },
           {
-            "uid": "R_zMliP-KM_ofoES8jpxA",
+            "uid": "VdPy6zgHTVuCPRjNBGpHF",
             "lhsExpr": "req.body.description",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -671,7 +675,7 @@
             "status": "pass"
           },
           {
-            "uid": "ZaTwLGqkFwJhrWhoX97OD",
+            "uid": "BI5yDgPgDexW7CfoMBcVS",
             "lhsExpr": "req.body.pages",
             "rhsExpr": "isDefined",
             "rhsOperand": "",
@@ -683,20 +687,21 @@
           {
             "description": "Expect status code to be 500",
             "status": "pass",
-            "uid": "ICYDSRpNJc8PN3jxh7dpB"
+            "uid": "fkMrM7XZA7US-6cReT-9a"
           },
           {
             "description": "Expect response time to be less than 3500ms",
             "status": "pass",
-            "uid": "lKlpukOJavH9KW_ySti6U"
+            "uid": "4aaS0e7fA_ZcLdGpbEIkJ"
           },
           {
             "description": "Expect response error to have a clear information",
             "status": "pass",
-            "uid": "fAwSwxjHEhnvPKBdoqxjM"
+            "uid": "5EdrWU_FphLJ1vpwNrSFj"
           }
         ],
-        "runtime": 1.181472577,
+        "shouldStopRunnerExecution": false,
+        "runtime": 1.160919214,
         "suitename": "Books/InvalidData",
         "iterationIndex": 0
       },
@@ -706,7 +711,7 @@
         },
         "request": {
           "method": "DELETE",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/10687324-5127-40f6-ac1e-f3afbecc6d66",
+          "url": "https://qa-simple-book-api.vercel.app/api/books/6d2715e5-7186-41e2-b14e-facafa0fee72",
           "headers": {
             "Authorization": "REDACTED"
           }
@@ -716,22 +721,22 @@
           "statusText": "No Content",
           "headers": {
             "cache-control": "public, max-age=0, must-revalidate",
-            "date": "Mon, 17 Feb 2025 00:55:42 GMT",
+            "date": "Fri, 21 Feb 2025 01:05:02 GMT",
             "etag": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\"",
             "server": "Vercel",
             "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
             "x-powered-by": "Express",
             "x-vercel-cache": "MISS",
-            "x-vercel-id": "cle1::iad1::wqlvd-1739753742330-b228b9daadb0",
+            "x-vercel-id": "sfo1::iad1::cwl4s-1740099902147-7861e634df0a",
             "connection": "close"
           },
           "data": "",
-          "responseTime": 145
+          "responseTime": 148
         },
         "error": null,
         "assertionResults": [
           {
-            "uid": "qkCTbGUhfmlWTmSYDwMkI",
+            "uid": "_TSOOcZhhx0sDfAaK62ox",
             "lhsExpr": "res.body",
             "rhsExpr": "isEmpty",
             "rhsOperand": "",
@@ -743,15 +748,16 @@
           {
             "description": "Expect status code to be 204",
             "status": "pass",
-            "uid": "irW9J899YK31GGLSsdpw3"
+            "uid": "jCXSySnEqKdirbam2lLhS"
           },
           {
             "description": "Expect response time to be below 3500ms",
             "status": "pass",
-            "uid": "ZCbXXIQT3CYpLQIOjfCB4"
+            "uid": "ZaXkpIi2p1XDiQU8EtR4J"
           }
         ],
-        "runtime": 0.153319688,
+        "shouldStopRunnerExecution": false,
+        "runtime": 0.154591363,
         "suitename": "Books/DeleteTestData",
         "iterationIndex": 0
       }
