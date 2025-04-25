@@ -21,6 +21,9 @@
       .n-collapse-item.error > .n-collapse-item__header {
         background-color: rgba(251, 238, 241, 1);
       }
+      .skipped > .status {
+        color: orange;
+      }
 
       .min-width-150 {
         min-width: 150px;
@@ -156,13 +159,13 @@
                   </n-flex>
                 </template>
               </n-page-header>
-              <n-tabs type="segment" animated>
+              <n-tabs type="segment" animated v-model:value="currentTab">
                 <n-tab-pane name="summary" tab="Summary">
                   <n-flex justify="center" vertical>
                     <x-summary v-for="(result, index) in res" :res="result" :key="index"></x-summary>
                   </n-flex>
                 </n-tab-pane>
-                <n-tab-pane name="Requests" tab="Requests">
+                <n-tab-pane name="requests" tab="Requests">
                   <n-flex justify="center" vertical>
                     <x-requests v-for="(result, index) in res" :res="result" :key="index"></x-requests>
                   </n-flex>
@@ -206,6 +209,10 @@
                 >
                 </n-statistic>
               </n-alert>
+              <n-alert type="warning" v-if="summarySkippedRequests">
+                <n-statistic label="Skipped requests" :value="summarySkippedRequests">
+                </n-statistic>
+              </n-alert>
               <n-statistic
               label="Total run duration"
               :value="Math.round(totalRunDuration*1000)/1000"
@@ -229,47 +236,27 @@
             :rail-style="railStyle"
           >
             <template #checked> Only Failed </template>
-            <template #unchecked> Only Passed </template>
+            <template #unchecked> Show All </template>
           </n-switch>
 
           <n-collapse>
-            <x-results-group v-for="(results, group) in groupedResults" :results="results" :group="group" :key="group + '-' + results.length"></x-results-group>
+            <x-result v-for="(result, index) in results" :result="result" :key="results.length"></x-result>
           </n-collapse>
         </n-flex>
       </n-card>
     </script>
-    <script type="text/x-template" id="results-group-component">
-      <n-collapse-item
-        :name="group"
-        arrow-placement="right"
-      >
-        <template #header>
-          <n-alert
-            :type="hasError || hasFailure ? 'error' : 'success'"
-            :bordered="false"
-          >
-            <template #header>
-              {{group}} - {{totalPassed}} / {{total}} Passed {{ hasError? " - Error" : "" }}
-            </template>
-          </n-alert>
-        </template>
-        <n-collapse>
-          <x-result v-for="(result, index) in results" :result="result" :group="group" :key="index"></x-result>
-        </n-collapse>
-      </n-collapse-item>
-    </script>
     <script type="text/x-template" id="result-component">
       <n-collapse-item
-        :name="name"
+        :name="resultTitle"
         arrow-placement="right"
       >
         <template #header>
           <n-alert
-            :type="hasError || hasFailure ? 'error' : 'success'"
+            :type="getAlertType"
             :bordered="false"
           >
             <template #header>
-              {{suitename}} - {{totalPassed}} / {{total}} Passed {{hasError ? " - Error" : "" }}
+              {{result.path}} - {{result.response.status === 'skipped' ? 'Request Skipped' : (totalPassed + '/' + total + ' Passed')}} {{hasError ? " - (request failed)" : "" }}
             </template>
           </n-alert>
         </template>
@@ -281,7 +268,7 @@
                   <n-list-item>
                     <n-thing
                       title="File"
-                      :description="result.test.filename"
+                      :description="result.path"
                     />
                   </n-list-item>
                   <n-list-item>
@@ -337,7 +324,13 @@
             v-if="result.request.data"
             title="REQUEST BODY"
           >
-            <pre>{{result.request.data}}</pre>
+          <iframe
+            v-if="result.request.isHtml"
+            :srcdoc="result.request.data"
+            style="width: 100%; height: 400px; border: none;"
+          ></iframe>
+
+          <pre v-else>{{ result.request.data }}</pre>
           </n-card>
           <n-card title="RESPONSE HEADERS">
             <n-data-table
@@ -349,8 +342,13 @@
             v-if="result.response.data"
             title="RESPONSE BODY"
           >
-            <pre>{{result.response.data}}</pre>
-          </n-card>
+          <iframe
+            v-if="result.response.isHtml"
+            :srcdoc="result.response.data"
+            style="width: 100%; height: 400px; border: none;"
+          ></iframe>
+
+          <pre v-else>{{ result.response.data }}</pre>          </n-card>
           <n-card title="ASSERTIONS INFORMATION">
             <n-data-table
               :columns="assertionsColumns"
@@ -369,404 +367,28 @@
       </n-collapse-item>
     </script>
     <script>
-      const { createApp, ref, computed } = Vue;
+      const { createApp, ref, computed, onMounted } = Vue;
 
       const App = {
         setup() {
-          const res = [
-  {
-    "iterationIndex": 0,
-    "summary": {
-      "totalRequests": 5,
-      "passedRequests": 5,
-      "failedRequests": 0,
-      "skippedRequests": 0,
-      "totalAssertions": 8,
-      "passedAssertions": 8,
-      "failedAssertions": 0,
-      "totalTests": 18,
-      "passedTests": 17,
-      "failedTests": 1
-    },
-    "results": [
-      {
-        "test": {
-          "filename": "Books/loginAuth.bru"
-        },
-        "request": {
-          "method": "POST",
-          "url": "https://qa-simple-book-api.vercel.app/api/login",
-          "headers": {
-            "content-type": "application/json"
-          },
-          "data": "{\n  \"username\": \"PierreSwtich\",\n  \"password\": \"Automation2024\"\n}"
-        },
-        "response": {
-          "status": 200,
-          "statusText": "OK",
-          "headers": {
-            "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "175",
-            "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 21 Apr 2025 01:01:43 GMT",
-            "etag": "W/\"af-Z6ct929N0y29WzwY6MR1taORfDY\"",
-            "server": "Vercel",
-            "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
-            "x-powered-by": "Express",
-            "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::mc2vw-1745197299820-571ceb8b9c6c",
-            "connection": "close"
-          },
-          "data": {
-            "token": "REDACTED"
-          },
-          "responseTime": 3845
-        },
-        "error": null,
-        "assertionResults": [
-          {
-            "uid": "87823i5GZ11eKymugK6bc",
-            "lhsExpr": "res.body.token",
-            "rhsExpr": "isDefined",
-            "rhsOperand": "",
-            "operator": "isDefined",
-            "status": "pass"
+          function decodeBase64(base64) {
+            const binary = atob(base64);
+            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+            return new TextDecoder().decode(bytes);
           }
-        ],
-        "testResults": [
-          {
-            "description": "Expect response time to be below 3500ms",
-            "status": "fail",
-            "error": "expected 3845 to be below 3500",
-            "actual": 3845,
-            "expected": 3500,
-            "uid": "8GEyTrz4cSQuRk0joduCg"
-          },
-          {
-            "description": "Expect status code to be 200",
-            "status": "pass",
-            "uid": "w3ZEiHW9REUccjgV6cwpF"
-          },
-          {
-            "description": "Expect res.body to be an object",
-            "status": "pass",
-            "uid": "L0vfPO3wJ601nOivSFusT"
-          },
-          {
-            "description": "Book id is defined",
-            "status": "pass",
-            "uid": "D27WfttZKSD1K6C6MmOVC"
-          }
-        ],
-        "shouldStopRunnerExecution": false,
-        "runtime": 3.911374805,
-        "suitename": "Books/loginAuth",
-        "iterationIndex": 0
-      },
-      {
-        "test": {
-          "filename": "Books/CreateABook.bru"
-        },
-        "request": {
-          "method": "POST",
-          "url": "https://qa-simple-book-api.vercel.app/api/books",
-          "headers": {
-            "Authorization": "REDACTED",
-            "content-type": "application/json"
-          },
-          "data": "{\n  \"title\": \"against\",\n  \"description\": \"to oof restfully properly an initialize miserably upon superimpose kookily vast sans until svelte unless lest like bikini\",\n  \"pages\": 243\n}"
-        },
-        "response": {
-          "status": 201,
-          "statusText": "Created",
-          "headers": {
-            "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "291",
-            "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 21 Apr 2025 01:01:45 GMT",
-            "etag": "W/\"123-sjnTFEWP4r631oHAB5TLQwq6du4\"",
-            "server": "Vercel",
-            "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
-            "x-powered-by": "Express",
-            "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::n5d59-1745197305041-9bc97d0d5f9a",
-            "connection": "close"
-          },
-          "data": {
-            "id": "7f1cc0b7-a860-4fd4-9da0-5239894ff3b4",
-            "title": "against",
-            "description": "to oof restfully properly an initialize miserably upon superimpose kookily vast sans until svelte unless lest like bikini",
-            "pages": 243,
-            "createdat": "2025-04-21T01:01:45.106Z",
-            "updatedat": "2025-04-21T01:01:45.106Z"
-          },
-          "responseTime": 155
-        },
-        "error": null,
-        "assertionResults": [
-          {
-            "uid": "_utdRXAw1OZlDw3p9Yq8s",
-            "lhsExpr": "res.body.title",
-            "rhsExpr": "eq {{bookTitle}}",
-            "rhsOperand": "{{bookTitle}}",
-            "operator": "eq",
-            "status": "pass"
-          },
-          {
-            "uid": "hXCm4SZHpTPnqbf9-QI4j",
-            "lhsExpr": "res.body.description",
-            "rhsExpr": "eq {{bookDesc}}",
-            "rhsOperand": "{{bookDesc}}",
-            "operator": "eq",
-            "status": "pass"
-          },
-          {
-            "uid": "tMAJKg6TEhAnXaCLwDLhz",
-            "lhsExpr": "res.body.pages",
-            "rhsExpr": "eq {{bookPages}}",
-            "rhsOperand": "{{bookPages}}",
-            "operator": "eq",
-            "status": "pass"
-          }
-        ],
-        "testResults": [
-          {
-            "description": "Expect status code to be 201",
-            "status": "pass",
-            "uid": "jLgSN6zE3ggHHZqiaFtNO"
-          },
-          {
-            "description": "Expect response time to be below 3500ms",
-            "status": "pass",
-            "uid": "m3QyWjTQ97ZfelqJ77psp"
-          },
-          {
-            "description": "Expect res.body to be an object",
-            "status": "pass",
-            "uid": "oG2VGJK9TP9-qcVphaIPO"
-          },
-          {
-            "description": "Book id is defined",
-            "status": "pass",
-            "uid": "dRRaZpxw5vubYx4unuZuo"
-          },
-          {
-            "description": "Expect res.body values to match the body request input",
-            "status": "pass",
-            "uid": "lX8tL5CUnWtlet773Zp_3"
-          }
-        ],
-        "shouldStopRunnerExecution": false,
-        "runtime": 1.693968339,
-        "suitename": "Books/CreateABook",
-        "iterationIndex": 0
-      },
-      {
-        "test": {
-          "filename": "Books/GetBook.bru"
-        },
-        "request": {
-          "method": "GET",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/7f1cc0b7-a860-4fd4-9da0-5239894ff3b4",
-          "headers": {
-            "Authorization": "REDACTED"
-          }
-        },
-        "response": {
-          "status": 200,
-          "statusText": "OK",
-          "headers": {
-            "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "291",
-            "content-type": "application/json; charset=utf-8",
-            "date": "Mon, 21 Apr 2025 01:01:45 GMT",
-            "etag": "W/\"123-sjnTFEWP4r631oHAB5TLQwq6du4\"",
-            "server": "Vercel",
-            "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
-            "x-powered-by": "Express",
-            "x-vercel-cache": "BYPASS",
-            "x-vercel-id": "iad1::iad1::pnwhg-1745197305271-875d6b01d6bd",
-            "connection": "close"
-          },
-          "data": {
-            "id": "7f1cc0b7-a860-4fd4-9da0-5239894ff3b4",
-            "title": "against",
-            "description": "to oof restfully properly an initialize miserably upon superimpose kookily vast sans until svelte unless lest like bikini",
-            "pages": 243,
-            "createdat": "2025-04-21T01:01:45.106Z",
-            "updatedat": "2025-04-21T01:01:45.106Z"
-          },
-          "responseTime": 191
-        },
-        "error": null,
-        "assertionResults": [],
-        "testResults": [
-          {
-            "description": "Expect status code to be 200",
-            "status": "pass",
-            "uid": "ZEdMJsrqgQin0-NFCbbQA"
-          },
-          {
-            "description": "Expect response time to be below 3500ms",
-            "status": "pass",
-            "uid": "tL2wIsKjkNRu8JzcpNeRs"
-          },
-          {
-            "description": "Expect res.body to be an object",
-            "status": "pass",
-            "uid": "XUnEd_jM_nAx1F8lNA1Tn"
-          },
-          {
-            "description": "Verify the response data",
-            "status": "pass",
-            "uid": "_7cj2JXo8W2A6ndqYIPdt"
-          }
-        ],
-        "shouldStopRunnerExecution": false,
-        "runtime": 0.197415333,
-        "suitename": "Books/GetBook",
-        "iterationIndex": 0
-      },
-      {
-        "test": {
-          "filename": "Books/InvalidData.bru"
-        },
-        "request": {
-          "method": "POST",
-          "url": "https://qa-simple-book-api.vercel.app/api/books",
-          "headers": {
-            "Authorization": "REDACTED",
-            "content-type": "application/json"
-          },
-          "data": "{\n  \"title\": \"against\",\n  \"description\": \"to oof restfully properly an initialize miserably upon superimpose kookily vast sans until svelte unless lest like bikini\",\n  \"pages\": 0\n}"
-        },
-        "response": {
-          "status": 400,
-          "statusText": "Bad Request",
-          "headers": {
-            "cache-control": "public, max-age=0, must-revalidate",
-            "content-length": "38",
-            "content-type": "text/html; charset=utf-8",
-            "date": "Mon, 21 Apr 2025 01:01:46 GMT",
-            "etag": "W/\"26-RourOR9kEZf6mT1ZCEv2wGjOtJM\"",
-            "server": "Vercel",
-            "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
-            "x-powered-by": "Express",
-            "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::pfckj-1745197306569-9984d35d463f",
-            "connection": "close"
-          },
-          "data": "response content redacted",
-          "responseTime": 233
-        },
-        "error": null,
-        "assertionResults": [
-          {
-            "uid": "NBlXzo22dsyQVHGKZBxcw",
-            "lhsExpr": "req.body.title",
-            "rhsExpr": "isDefined",
-            "rhsOperand": "",
-            "operator": "isDefined",
-            "status": "pass"
-          },
-          {
-            "uid": "JGpFydyNBNyk-iBTM8fhy",
-            "lhsExpr": "req.body.description",
-            "rhsExpr": "isDefined",
-            "rhsOperand": "",
-            "operator": "isDefined",
-            "status": "pass"
-          },
-          {
-            "uid": "TDqfbPgr7h7ZXm4Mi06is",
-            "lhsExpr": "req.body.pages",
-            "rhsExpr": "isDefined",
-            "rhsOperand": "",
-            "operator": "isDefined",
-            "status": "pass"
-          }
-        ],
-        "testResults": [
-          {
-            "description": "Expect status code to be 500",
-            "status": "pass",
-            "uid": "axdRQxSMYCY_j6P0NR5w2"
-          },
-          {
-            "description": "Expect response time to be less than 3500ms",
-            "status": "pass",
-            "uid": "Xpu2IXh9Xk1xzWHOGWpbY"
-          },
-          {
-            "description": "Expect response error to have a clear information",
-            "status": "pass",
-            "uid": "PoB2mGRhP0_NItZVOR_3Z"
-          }
-        ],
-        "shouldStopRunnerExecution": false,
-        "runtime": 1.278034426,
-        "suitename": "Books/InvalidData",
-        "iterationIndex": 0
-      },
-      {
-        "test": {
-          "filename": "Books/DeleteTestData.bru"
-        },
-        "request": {
-          "method": "DELETE",
-          "url": "https://qa-simple-book-api.vercel.app/api/books/7f1cc0b7-a860-4fd4-9da0-5239894ff3b4",
-          "headers": {
-            "Authorization": "REDACTED"
-          }
-        },
-        "response": {
-          "status": 204,
-          "statusText": "No Content",
-          "headers": {
-            "cache-control": "public, max-age=0, must-revalidate",
-            "date": "Mon, 21 Apr 2025 01:01:46 GMT",
-            "etag": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\"",
-            "server": "Vercel",
-            "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
-            "x-powered-by": "Express",
-            "x-vercel-cache": "MISS",
-            "x-vercel-id": "iad1::iad1::2p8vz-1745197306725-b581d02664dd",
-            "connection": "close"
-          },
-          "data": "",
-          "responseTime": 179
-        },
-        "error": null,
-        "assertionResults": [
-          {
-            "uid": "imeBMFrQMQw6BWRYfpDDO",
-            "lhsExpr": "res.body",
-            "rhsExpr": "isEmpty",
-            "rhsOperand": "",
-            "operator": "isEmpty",
-            "status": "pass"
-          }
-        ],
-        "testResults": [
-          {
-            "description": "Expect status code to be 204",
-            "status": "pass",
-            "uid": "X8Cg9A9Ox9xGVbN5hECCg"
-          },
-          {
-            "description": "Expect response time to be below 3500ms",
-            "status": "pass",
-            "uid": "FoW1dy8zQovpBCBRThUrU"
-          }
-        ],
-        "shouldStopRunnerExecution": false,
-        "runtime": 0.186947048,
-        "suitename": "Books/DeleteTestData",
-        "iterationIndex": 0
-      }
-    ]
-  }
-];
+          const res = JSON.parse(decodeBase64('W3siaXRlcmF0aW9uSW5kZXgiOjAsInJlc3VsdHMiOlt7InRlc3QiOnsiZmlsZW5hbWUiOiJCb29rcy9sb2dpbkF1dGguYnJ1In0sInJlcXVlc3QiOnsibWV0aG9kIjoiUE9TVCIsInVybCI6Imh0dHBzOi8vcWEtc2ltcGxlLWJvb2stYXBpLnZlcmNlbC5hcHAvYXBpL2xvZ2luIiwiaGVhZGVycyI6eyJjb250ZW50LXR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIn0sImRhdGEiOiJ7XG4gIFwidXNlcm5hbWVcIjogXCJQaWVycmVTd3RpY2hcIixcbiAgXCJwYXNzd29yZFwiOiBcIkF1dG9tYXRpb24yMDI0XCJcbn0iLCJpc0h0bWwiOmZhbHNlfSwicmVzcG9uc2UiOnsic3RhdHVzIjoyMDAsInN0YXR1c1RleHQiOiJPSyIsImhlYWRlcnMiOnsiY2FjaGUtY29udHJvbCI6InB1YmxpYywgbWF4LWFnZT0wLCBtdXN0LXJldmFsaWRhdGUiLCJjb250ZW50LWxlbmd0aCI6IjE3NSIsImNvbnRlbnQtdHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJkYXRlIjoiRnJpLCAyNSBBcHIgMjAyNSAwMToxMTo1MCBHTVQiLCJldGFnIjoiVy9cImFmLXVRM3A5MldVdU1yUHM3V3dycGRjVzF3RTc2TVwiIiwic2VydmVyIjoiVmVyY2VsIiwic3RyaWN0LXRyYW5zcG9ydC1zZWN1cml0eSI6Im1heC1hZ2U9NjMwNzIwMDA7IGluY2x1ZGVTdWJEb21haW5zOyBwcmVsb2FkIiwieC1wb3dlcmVkLWJ5IjoiRXhwcmVzcyIsIngtdmVyY2VsLWNhY2hlIjoiTUlTUyIsIngtdmVyY2VsLWlkIjoic2ZvMTo6aWFkMTo6dHFmYnAtMTc0NTU0MzUwNjk5Mi04ODE1NjY2MGZiMjAiLCJjb25uZWN0aW9uIjoiY2xvc2UifSwiZGF0YSI6eyJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUoxYzJWeWJtRnRaU0k2SWxCcFpYSnlaVk4zZEdsamFDSXNJbWxoZENJNk1UYzBOVFUwTXpVeE1Dd2laWGh3SWpveE56UTFOVFEzTVRFd2ZRLllKM3Q5MWJFbG43MkpET0o3V1NkbUFBaDN4ZDlOWTR4LXpGdEdpckJyRGsifSwicmVzcG9uc2VUaW1lIjozNDg0LCJpc0h0bWwiOmZhbHNlfSwiZXJyb3IiOm51bGwsInN0YXR1cyI6InBhc3MiLCJhc3NlcnRpb25SZXN1bHRzIjpbeyJ1aWQiOiJwNmJ6SDJ1Z1h0MlR6cXhUcmNCY20iLCJsaHNFeHByIjoicmVzLmJvZHkudG9rZW4iLCJyaHNFeHByIjoiaXNEZWZpbmVkIiwicmhzT3BlcmFuZCI6IiIsIm9wZXJhdG9yIjoiaXNEZWZpbmVkIiwic3RhdHVzIjoicGFzcyJ9XSwidGVzdFJlc3VsdHMiOlt7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHN0YXR1cyBjb2RlIHRvIGJlIDIwMCIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiJQUmw4amsyc2M2MTQ4YjFuRkEtS24ifSx7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHJlc3BvbnNlIHRpbWUgdG8gYmUgYmVsb3cgMzUwMG1zIiwic3RhdHVzIjoicGFzcyIsInVpZCI6IkJ2YnNkOTNfOEpfMXhxUTBtek5LdyJ9LHsiZGVzY3JpcHRpb24iOiJFeHBlY3QgcmVzLmJvZHkgdG8gYmUgYW4gb2JqZWN0Iiwic3RhdHVzIjoicGFzcyIsInVpZCI6IldiSGpvY05wdTJsUU81Yl91UmJlZSJ9LHsiZGVzY3JpcHRpb24iOiJCb29rIGlkIGlzIGRlZmluZWQiLCJzdGF0dXMiOiJwYXNzIiwidWlkIjoiS01jWW8yREJCbUFaMjJOSjR6SHQ5In1dLCJzaG91bGRTdG9wUnVubmVyRXhlY3V0aW9uIjpmYWxzZSwicnVuRHVyYXRpb24iOjMuNTQzMDkyNTgsIm5hbWUiOiJMb2dpbiIsInBhdGgiOiJCb29rcy9sb2dpbkF1dGgiLCJpdGVyYXRpb25JbmRleCI6MH0seyJ0ZXN0Ijp7ImZpbGVuYW1lIjoiQm9va3MvQ3JlYXRlQUJvb2suYnJ1In0sInJlcXVlc3QiOnsibWV0aG9kIjoiUE9TVCIsInVybCI6Imh0dHBzOi8vcWEtc2ltcGxlLWJvb2stYXBpLnZlcmNlbC5hcHAvYXBpL2Jvb2tzIiwiaGVhZGVycyI6eyJBdXRob3JpemF0aW9uIjoiQmVhcmVyIGV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUoxYzJWeWJtRnRaU0k2SWxCcFpYSnlaVk4zZEdsamFDSXNJbWxoZENJNk1UYzBOVFUwTXpVeE1Dd2laWGh3SWpveE56UTFOVFEzTVRFd2ZRLllKM3Q5MWJFbG43MkpET0o3V1NkbUFBaDN4ZDlOWTR4LXpGdEdpckJyRGsiLCJjb250ZW50LXR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIn0sImRhdGEiOiJ7XG4gIFwidGl0bGVcIjogXCJicnIgYnJpc2tseSBiYWhcIixcbiAgXCJkZXNjcmlwdGlvblwiOiBcImNhbG1seSBncm93IGFjY3VtdWxhdGUgdmljaW91c2x5IG9sZCB1bmRlcnNob290IGJhaCBtbW0gZnVydGhlcm1vcmUgY2FycG9ydCB5dWNrIGZvcmVuZW5zdCBlcGl0b21pemUgbGlrZWx5IHNwZWVkaWx5IHVwbGlmdGluZ2x5IHNvbGlkbHkgbWVoIG1pbnVzXCIsXG4gIFwicGFnZXNcIjogN1xufSIsImlzSHRtbCI6ZmFsc2V9LCJyZXNwb25zZSI6eyJzdGF0dXMiOjIwMSwic3RhdHVzVGV4dCI6IkNyZWF0ZWQiLCJoZWFkZXJzIjp7ImNhY2hlLWNvbnRyb2wiOiJwdWJsaWMsIG1heC1hZ2U9MCwgbXVzdC1yZXZhbGlkYXRlIiwiY29udGVudC1sZW5ndGgiOiIzMjIiLCJjb250ZW50LXR5cGUiOiJhcHBsaWNhdGlvbi9qc29uOyBjaGFyc2V0PXV0Zi04IiwiZGF0ZSI6IkZyaSwgMjUgQXByIDIwMjUgMDE6MTE6NTIgR01UIiwiZXRhZyI6IlcvXCIxNDItR3pMN3A3RVc4UzVxNHpUWVVNN0dUTWhKUU5JXCIiLCJzZXJ2ZXIiOiJWZXJjZWwiLCJzdHJpY3QtdHJhbnNwb3J0LXNlY3VyaXR5IjoibWF4LWFnZT02MzA3MjAwMDsgaW5jbHVkZVN1YkRvbWFpbnM7IHByZWxvYWQiLCJ4LXBvd2VyZWQtYnkiOiJFeHByZXNzIiwieC12ZXJjZWwtY2FjaGUiOiJNSVNTIiwieC12ZXJjZWwtaWQiOiJzZm8xOjppYWQxOjpjZGdmYi0xNzQ1NTQzNTEyMDQzLWI1MmRjYzYzMzhjYiIsImNvbm5lY3Rpb24iOiJjbG9zZSJ9LCJkYXRhIjp7ImlkIjoiNDA5ZTBlNzgtNjFiOC00ZGVlLTgyMzctMmY1ZTNlOGVlYzRkIiwidGl0bGUiOiJicnIgYnJpc2tseSBiYWgiLCJkZXNjcmlwdGlvbiI6ImNhbG1seSBncm93IGFjY3VtdWxhdGUgdmljaW91c2x5IG9sZCB1bmRlcnNob290IGJhaCBtbW0gZnVydGhlcm1vcmUgY2FycG9ydCB5dWNrIGZvcmVuZW5zdCBlcGl0b21pemUgbGlrZWx5IHNwZWVkaWx5IHVwbGlmdGluZ2x5IHNvbGlkbHkgbWVoIG1pbnVzIiwicGFnZXMiOjcsImNyZWF0ZWRhdCI6IjIwMjUtMDQtMjVUMDE6MTE6NTIuMTE0WiIsInVwZGF0ZWRhdCI6IjIwMjUtMDQtMjVUMDE6MTE6NTIuMTE0WiJ9LCJyZXNwb25zZVRpbWUiOjE2MywiaXNIdG1sIjpmYWxzZX0sImVycm9yIjpudWxsLCJzdGF0dXMiOiJwYXNzIiwiYXNzZXJ0aW9uUmVzdWx0cyI6W3sidWlkIjoiVTkxbkJnN3pNRU15ckJ3VzJLTGFpIiwibGhzRXhwciI6InJlcy5ib2R5LnRpdGxlIiwicmhzRXhwciI6ImVxIHt7Ym9va1RpdGxlfX0iLCJyaHNPcGVyYW5kIjoie3tib29rVGl0bGV9fSIsIm9wZXJhdG9yIjoiZXEiLCJzdGF0dXMiOiJwYXNzIn0seyJ1aWQiOiJQWV9tVzF4eDZicU9ENE93UXlmM18iLCJsaHNFeHByIjoicmVzLmJvZHkuZGVzY3JpcHRpb24iLCJyaHNFeHByIjoiZXEge3tib29rRGVzY319IiwicmhzT3BlcmFuZCI6Int7Ym9va0Rlc2N9fSIsIm9wZXJhdG9yIjoiZXEiLCJzdGF0dXMiOiJwYXNzIn0seyJ1aWQiOiJNVVg0WmVRNTlvWDQ4cjRDa2VkUG8iLCJsaHNFeHByIjoicmVzLmJvZHkucGFnZXMiLCJyaHNFeHByIjoiZXEge3tib29rUGFnZXN9fSIsInJoc09wZXJhbmQiOiJ7e2Jvb2tQYWdlc319Iiwib3BlcmF0b3IiOiJlcSIsInN0YXR1cyI6InBhc3MifV0sInRlc3RSZXN1bHRzIjpbeyJkZXNjcmlwdGlvbiI6IkV4cGVjdCBzdGF0dXMgY29kZSB0byBiZSAyMDEiLCJzdGF0dXMiOiJwYXNzIiwidWlkIjoiNWhyQlhHNTNpQmZGVGdUM3JzWlZkIn0seyJkZXNjcmlwdGlvbiI6IkV4cGVjdCByZXNwb25zZSB0aW1lIHRvIGJlIGJlbG93IDM1MDBtcyIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiI4dmpnWjh0NVdKQlRPbEkyLUJ6Z1oifSx7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHJlcy5ib2R5IHRvIGJlIGFuIG9iamVjdCIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiI3bGxoMG9MVFlYVlQ4QmtWN1NJQXUifSx7ImRlc2NyaXB0aW9uIjoiQm9vayBpZCBpcyBkZWZpbmVkIiwic3RhdHVzIjoicGFzcyIsInVpZCI6IkFjTHlKMldkcktpNzBFeGFPZWJJYSJ9LHsiZGVzY3JpcHRpb24iOiJFeHBlY3QgcmVzLmJvZHkgdmFsdWVzIHRvIG1hdGNoIHRoZSBib2R5IHJlcXVlc3QgaW5wdXQiLCJzdGF0dXMiOiJwYXNzIiwidWlkIjoiVE9uM1lHMHl3d09MaGhkQVVEcUVzIn1dLCJzaG91bGRTdG9wUnVubmVyRXhlY3V0aW9uIjpmYWxzZSwicnVuRHVyYXRpb24iOjEuNzE3NjIzNTkzLCJuYW1lIjoiQ3JlYXRlIEEgQm9vayIsInBhdGgiOiJCb29rcy9DcmVhdGVBQm9vayIsIml0ZXJhdGlvbkluZGV4IjowfSx7InRlc3QiOnsiZmlsZW5hbWUiOiJCb29rcy9HZXRCb29rLmJydSJ9LCJyZXF1ZXN0Ijp7Im1ldGhvZCI6IkdFVCIsInVybCI6Imh0dHBzOi8vcWEtc2ltcGxlLWJvb2stYXBpLnZlcmNlbC5hcHAvYXBpL2Jvb2tzLzQwOWUwZTc4LTYxYjgtNGRlZS04MjM3LTJmNWUzZThlZWM0ZCIsImhlYWRlcnMiOnsiQXV0aG9yaXphdGlvbiI6IkJlYXJlciBleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKMWMyVnlibUZ0WlNJNklsQnBaWEp5WlZOM2RHbGphQ0lzSW1saGRDSTZNVGMwTlRVME16VXhNQ3dpWlhod0lqb3hOelExTlRRM01URXdmUS5ZSjN0OTFiRWxuNzJKRE9KN1dTZG1BQWgzeGQ5Tlk0eC16RnRHaXJCckRrIn0sImlzSHRtbCI6ZmFsc2V9LCJyZXNwb25zZSI6eyJzdGF0dXMiOjIwMCwic3RhdHVzVGV4dCI6Ik9LIiwiaGVhZGVycyI6eyJjYWNoZS1jb250cm9sIjoicHVibGljLCBtYXgtYWdlPTAsIG11c3QtcmV2YWxpZGF0ZSIsImNvbnRlbnQtbGVuZ3RoIjoiMzIyIiwiY29udGVudC10eXBlIjoiYXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOCIsImRhdGUiOiJGcmksIDI1IEFwciAyMDI1IDAxOjExOjUyIEdNVCIsImV0YWciOiJXL1wiMTQyLUd6TDdwN0VXOFM1cTR6VFlVTTdHVE1oSlFOSVwiIiwic2VydmVyIjoiVmVyY2VsIiwic3RyaWN0LXRyYW5zcG9ydC1zZWN1cml0eSI6Im1heC1hZ2U9NjMwNzIwMDA7IGluY2x1ZGVTdWJEb21haW5zOyBwcmVsb2FkIiwieC1wb3dlcmVkLWJ5IjoiRXhwcmVzcyIsIngtdmVyY2VsLWNhY2hlIjoiQllQQVNTIiwieC12ZXJjZWwtaWQiOiJzZm8xOjppYWQxOjp6azlubi0xNzQ1NTQzNTEyMjA5LTc5NzQ3Yzc0MDFkZiIsImNvbm5lY3Rpb24iOiJjbG9zZSJ9LCJkYXRhIjp7ImlkIjoiNDA5ZTBlNzgtNjFiOC00ZGVlLTgyMzctMmY1ZTNlOGVlYzRkIiwidGl0bGUiOiJicnIgYnJpc2tseSBiYWgiLCJkZXNjcmlwdGlvbiI6ImNhbG1seSBncm93IGFjY3VtdWxhdGUgdmljaW91c2x5IG9sZCB1bmRlcnNob290IGJhaCBtbW0gZnVydGhlcm1vcmUgY2FycG9ydCB5dWNrIGZvcmVuZW5zdCBlcGl0b21pemUgbGlrZWx5IHNwZWVkaWx5IHVwbGlmdGluZ2x5IHNvbGlkbHkgbWVoIG1pbnVzIiwicGFnZXMiOjcsImNyZWF0ZWRhdCI6IjIwMjUtMDQtMjVUMDE6MTE6NTIuMTE0WiIsInVwZGF0ZWRhdCI6IjIwMjUtMDQtMjVUMDE6MTE6NTIuMTE0WiJ9LCJyZXNwb25zZVRpbWUiOjI4OSwiaXNIdG1sIjpmYWxzZX0sImVycm9yIjpudWxsLCJzdGF0dXMiOiJwYXNzIiwiYXNzZXJ0aW9uUmVzdWx0cyI6W10sInRlc3RSZXN1bHRzIjpbeyJkZXNjcmlwdGlvbiI6IkV4cGVjdCBzdGF0dXMgY29kZSB0byBiZSAyMDAiLCJzdGF0dXMiOiJwYXNzIiwidWlkIjoiYmtLbGlVRTloVGZsRjBJdElxSXBaIn0seyJkZXNjcmlwdGlvbiI6IkV4cGVjdCByZXNwb25zZSB0aW1lIHRvIGJlIGJlbG93IDM1MDBtcyIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiIwMlNVdWZNSWN3TlpOU3VUbFBtSUcifSx7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHJlcy5ib2R5IHRvIGJlIGFuIG9iamVjdCIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiJCZS1XU0U5V2NWOFk1bU82bjJrTVQifSx7ImRlc2NyaXB0aW9uIjoiVmVyaWZ5IHRoZSByZXNwb25zZSBkYXRhIiwic3RhdHVzIjoicGFzcyIsInVpZCI6IkVkbThyN0ZhYjZpUlEyRDFoa2Q4ZSJ9XSwic2hvdWxkU3RvcFJ1bm5lckV4ZWN1dGlvbiI6ZmFsc2UsInJ1bkR1cmF0aW9uIjowLjI5NDE1NTIyOSwibmFtZSI6IkdldCBOZXdseSBDcmVhdGVkIE1vdmllIGVudHJ5IiwicGF0aCI6IkJvb2tzL0dldEJvb2siLCJpdGVyYXRpb25JbmRleCI6MH0seyJ0ZXN0Ijp7ImZpbGVuYW1lIjoiQm9va3MvSW52YWxpZERhdGEuYnJ1In0sInJlcXVlc3QiOnsibWV0aG9kIjoiUE9TVCIsInVybCI6Imh0dHBzOi8vcWEtc2ltcGxlLWJvb2stYXBpLnZlcmNlbC5hcHAvYXBpL2Jvb2tzIiwiaGVhZGVycyI6eyJBdXRob3JpemF0aW9uIjoiQmVhcmVyIGV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUoxYzJWeWJtRnRaU0k2SWxCcFpYSnlaVk4zZEdsamFDSXNJbWxoZENJNk1UYzBOVFUwTXpVeE1Dd2laWGh3SWpveE56UTFOVFEzTVRFd2ZRLllKM3Q5MWJFbG43MkpET0o3V1NkbUFBaDN4ZDlOWTR4LXpGdEdpckJyRGsiLCJjb250ZW50LXR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIn0sImRhdGEiOiJ7XG4gIFwidGl0bGVcIjogXCJicnIgYnJpc2tseSBiYWhcIixcbiAgXCJkZXNjcmlwdGlvblwiOiBcImNhbG1seSBncm93IGFjY3VtdWxhdGUgdmljaW91c2x5IG9sZCB1bmRlcnNob290IGJhaCBtbW0gZnVydGhlcm1vcmUgY2FycG9ydCB5dWNrIGZvcmVuZW5zdCBlcGl0b21pemUgbGlrZWx5IHNwZWVkaWx5IHVwbGlmdGluZ2x5IHNvbGlkbHkgbWVoIG1pbnVzXCIsXG4gIFwicGFnZXNcIjogMFxufSIsImlzSHRtbCI6ZmFsc2V9LCJyZXNwb25zZSI6eyJzdGF0dXMiOjQwMCwic3RhdHVzVGV4dCI6IkJhZCBSZXF1ZXN0IiwiaGVhZGVycyI6eyJjYWNoZS1jb250cm9sIjoicHVibGljLCBtYXgtYWdlPTAsIG11c3QtcmV2YWxpZGF0ZSIsImNvbnRlbnQtbGVuZ3RoIjoiMzgiLCJjb250ZW50LXR5cGUiOiJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiLCJkYXRlIjoiRnJpLCAyNSBBcHIgMjAyNSAwMToxMTo1MyBHTVQiLCJldGFnIjoiVy9cIjI2LVJvdXJPUjlrRVpmNm1UMVpDRXYyd0dqT3RKTVwiIiwic2VydmVyIjoiVmVyY2VsIiwic3RyaWN0LXRyYW5zcG9ydC1zZWN1cml0eSI6Im1heC1hZ2U9NjMwNzIwMDA7IGluY2x1ZGVTdWJEb21haW5zOyBwcmVsb2FkIiwieC1wb3dlcmVkLWJ5IjoiRXhwcmVzcyIsIngtdmVyY2VsLWNhY2hlIjoiTUlTUyIsIngtdmVyY2VsLWlkIjoic2ZvMTo6aWFkMTo6enI0bmMtMTc0NTU0MzUxMzU0Mi01Nzk0YThkYWVlMDMiLCJjb25uZWN0aW9uIjoiY2xvc2UifSwiZGF0YSI6IlBhZ2VzIG11c3QgYmUgYSBudW1iZXIgYW5kIGF0IGxlYXN0IDEuIiwicmVzcG9uc2VUaW1lIjoxMjIsImlzSHRtbCI6dHJ1ZX0sImVycm9yIjpudWxsLCJzdGF0dXMiOiJwYXNzIiwiYXNzZXJ0aW9uUmVzdWx0cyI6W3sidWlkIjoiZVZ4R3ZnMFQ4SE03TkVtcDZVcVdmIiwibGhzRXhwciI6InJlcS5ib2R5LnRpdGxlIiwicmhzRXhwciI6ImlzRGVmaW5lZCIsInJoc09wZXJhbmQiOiIiLCJvcGVyYXRvciI6ImlzRGVmaW5lZCIsInN0YXR1cyI6InBhc3MifSx7InVpZCI6IkJ6b3lwbDdqS3lIM3UxU2stLWptMSIsImxoc0V4cHIiOiJyZXEuYm9keS5kZXNjcmlwdGlvbiIsInJoc0V4cHIiOiJpc0RlZmluZWQiLCJyaHNPcGVyYW5kIjoiIiwib3BlcmF0b3IiOiJpc0RlZmluZWQiLCJzdGF0dXMiOiJwYXNzIn0seyJ1aWQiOiJBNnJwOENaWE5kX2xmTGh5VmJJQTMiLCJsaHNFeHByIjoicmVxLmJvZHkucGFnZXMiLCJyaHNFeHByIjoiaXNEZWZpbmVkIiwicmhzT3BlcmFuZCI6IiIsIm9wZXJhdG9yIjoiaXNEZWZpbmVkIiwic3RhdHVzIjoicGFzcyJ9XSwidGVzdFJlc3VsdHMiOlt7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHN0YXR1cyBjb2RlIHRvIGJlIDUwMCIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiJMS20xZTY4bW9mSTVRTy1BNU1zYU4ifSx7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHJlc3BvbnNlIHRpbWUgdG8gYmUgbGVzcyB0aGFuIDM1MDBtcyIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiJFWHhFcEVubjB6Rm9OVXFlTGozU1YifSx7ImRlc2NyaXB0aW9uIjoiRXhwZWN0IHJlc3BvbnNlIGVycm9yIHRvIGhhdmUgYSBjbGVhciBpbmZvcm1hdGlvbiIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiJOemZyeXc5OUhhRllIRmc4ZmlPcFgifV0sInNob3VsZFN0b3BSdW5uZXJFeGVjdXRpb24iOmZhbHNlLCJydW5EdXJhdGlvbiI6MS4xNjAxMjY5NjcsIm5hbWUiOiJJbnZhbGlkIERhdGEiLCJwYXRoIjoiQm9va3MvSW52YWxpZERhdGEiLCJpdGVyYXRpb25JbmRleCI6MH0seyJ0ZXN0Ijp7ImZpbGVuYW1lIjoiQm9va3MvRGVsZXRlVGVzdERhdGEuYnJ1In0sInJlcXVlc3QiOnsibWV0aG9kIjoiREVMRVRFIiwidXJsIjoiaHR0cHM6Ly9xYS1zaW1wbGUtYm9vay1hcGkudmVyY2VsLmFwcC9hcGkvYm9va3MvNDA5ZTBlNzgtNjFiOC00ZGVlLTgyMzctMmY1ZTNlOGVlYzRkIiwiaGVhZGVycyI6eyJBdXRob3JpemF0aW9uIjoiQmVhcmVyIGV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUoxYzJWeWJtRnRaU0k2SWxCcFpYSnlaVk4zZEdsamFDSXNJbWxoZENJNk1UYzBOVFUwTXpVeE1Dd2laWGh3SWpveE56UTFOVFEzTVRFd2ZRLllKM3Q5MWJFbG43MkpET0o3V1NkbUFBaDN4ZDlOWTR4LXpGdEdpckJyRGsifSwiaXNIdG1sIjpmYWxzZX0sInJlc3BvbnNlIjp7InN0YXR1cyI6MjA0LCJzdGF0dXNUZXh0IjoiTm8gQ29udGVudCIsImhlYWRlcnMiOnsiY2FjaGUtY29udHJvbCI6InB1YmxpYywgbWF4LWFnZT0wLCBtdXN0LXJldmFsaWRhdGUiLCJkYXRlIjoiRnJpLCAyNSBBcHIgMjAyNSAwMToxMTo1MyBHTVQiLCJldGFnIjoiVy9cImEtYkFzRnlpbE1yNFJhMWhJVTVQeW95RlJ1bnBJXCIiLCJzZXJ2ZXIiOiJWZXJjZWwiLCJzdHJpY3QtdHJhbnNwb3J0LXNlY3VyaXR5IjoibWF4LWFnZT02MzA3MjAwMDsgaW5jbHVkZVN1YkRvbWFpbnM7IHByZWxvYWQiLCJ4LXBvd2VyZWQtYnkiOiJFeHByZXNzIiwieC12ZXJjZWwtY2FjaGUiOiJNSVNTIiwieC12ZXJjZWwtaWQiOiJzZm8xOjppYWQxOjp4a2xwYy0xNzQ1NTQzNTEzNjY2LWMxMTYyNzJjZjA1YSIsImNvbm5lY3Rpb24iOiJjbG9zZSJ9LCJkYXRhIjoiIiwicmVzcG9uc2VUaW1lIjoxNTIsImlzSHRtbCI6ZmFsc2V9LCJlcnJvciI6bnVsbCwic3RhdHVzIjoicGFzcyIsImFzc2VydGlvblJlc3VsdHMiOlt7InVpZCI6IjlhTXlUVF9uem1RLVFxMzhvbWVLViIsImxoc0V4cHIiOiJyZXMuYm9keSIsInJoc0V4cHIiOiJpc0VtcHR5IiwicmhzT3BlcmFuZCI6IiIsIm9wZXJhdG9yIjoiaXNFbXB0eSIsInN0YXR1cyI6InBhc3MifV0sInRlc3RSZXN1bHRzIjpbeyJkZXNjcmlwdGlvbiI6IkV4cGVjdCBzdGF0dXMgY29kZSB0byBiZSAyMDQiLCJzdGF0dXMiOiJwYXNzIiwidWlkIjoiRWtaUm5tbWp5TUwzR3pDS1JGMGdYIn0seyJkZXNjcmlwdGlvbiI6IkV4cGVjdCByZXNwb25zZSB0aW1lIHRvIGJlIGJlbG93IDM1MDBtcyIsInN0YXR1cyI6InBhc3MiLCJ1aWQiOiJ3TnlKRHpFYnVvcjh6MUdMODFDVGMifV0sInNob3VsZFN0b3BSdW5uZXJFeGVjdXRpb24iOmZhbHNlLCJydW5EdXJhdGlvbiI6MC4xNTU4NDQ4NTIsIm5hbWUiOiJEZWxldGUgbmV3bHkgY3JldGVkIEVudHJ5IiwicGF0aCI6IkJvb2tzL0RlbGV0ZVRlc3REYXRhIiwiaXRlcmF0aW9uSW5kZXgiOjB9XSwic3VtbWFyeSI6eyJ0b3RhbFJlcXVlc3RzIjo1LCJwYXNzZWRSZXF1ZXN0cyI6NSwiZmFpbGVkUmVxdWVzdHMiOjAsImVycm9yUmVxdWVzdHMiOjAsInNraXBwZWRSZXF1ZXN0cyI6MCwidG90YWxBc3NlcnRpb25zIjo4LCJwYXNzZWRBc3NlcnRpb25zIjo4LCJmYWlsZWRBc3NlcnRpb25zIjowLCJ0b3RhbFRlc3RzIjoxOCwicGFzc2VkVGVzdHMiOjE4LCJmYWlsZWRUZXN0cyI6MH19XQ=='));
+
+          const currentTab = ref('summary');
+
+          const getTabFromQueryParam = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            return tab && ['summary', 'requests'].includes(tab) ? tab : 'summary';
+          };
+
+          onMounted(() => {
+            currentTab.value = getTabFromQueryParam();
+          });
 
           const darkMode = ref(false);
           const theme = computed(() => {
@@ -783,7 +405,8 @@
             res,
             theme,
             darkMode,
-            darkModeRailStyle: () => ({ background: 'var(--n-rail-color)' })
+            darkModeRailStyle: () => ({ background: 'var(--n-rail-color)' }),
+            currentTab
           };
         }
       };
@@ -811,6 +434,10 @@
               key: 'failed'
             },
             {
+              title: 'SKIPPED',
+              key: 'skipped'
+            },
+            {
               title: 'ERROR',
               key: 'error'
             }
@@ -821,13 +448,15 @@
               total: props.res.summary.totalRequests,
               passed: props.res.summary.passedRequests,
               failed: props.res.summary.failedRequests,
-              error: props?.res?.summary?.errorRequests
+              skipped: props.res.summary.skippedRequests,
+              error: props.res.summary.errorRequests
             },
             {
               title: 'Assertions',
               total: props.res.summary.totalAssertions,
               passed: props.res.summary.passedAssertions,
               failed: props.res.summary.failedAssertions,
+              skipped: '-',
               error: '-'
             },
             {
@@ -835,6 +464,7 @@
               total: props.res.summary.totalTests,
               passed: props.res.summary.passedTests,
               failed: props.res.summary.failedTests,
+              skipped: '-',
               error: '-'
             }
           ]);
@@ -847,8 +477,9 @@
           const summaryFailedControls = computed(
             () => props?.res?.summary?.failedTests + props?.res?.summary?.failedAssertions
           );
+          const summarySkippedRequests = computed(() => props?.res?.summary?.skippedRequests || 0);
           const summaryErrors = computed(() => props?.res?.results?.filter((r) => r.error || r.status === 'error').length) || 0;
-          const totalRunDuration = computed(() => props.res?.results?.reduce((total, test) => test.runtime + total, 0));
+          const totalRunDuration = computed(() => props.res?.results?.reduce((total, result) => result.runDuration + total, 0));
           const iterationIndex = Number(props.res.iterationIndex) + 1;
           return {
             summaryColumns,
@@ -856,6 +487,7 @@
             summaryTotalControls,
             summaryTotalRequests,
             summaryFailedControls,
+            summarySkippedRequests,
             summaryErrors,
             totalRunDuration,
             iterationTitle: 'Iteration ' + iterationIndex
@@ -879,22 +511,10 @@
             }
             return props.res.results;
           });
-          const groupedResults = computed(() => {
-            return filteredResults.value.reduce((groups, curr) => {
-              const path = curr?.suitename?.split('/');
-              const test = path.pop();
-              const name = (path.length || 0) ? path.join('/') : '(root)';
-              if (!groups[name]) {
-                groups[name] = [];
-              }
-              groups[name].push(curr);
-              return groups;
-            }, {});
-          });
           const iterationIndex = Number(props.res.iterationIndex) + 1;
           return {
             onlyFailed,
-            groupedResults,
+            results: filteredResults,
             railStyle: ({ checked }) => {
               const style = {};
               if (checked) {
@@ -907,40 +527,9 @@
         }
       });
 
-      app.component('x-results-group', {
-        template: '#results-group-component',
-        props: ['group', 'results'],
-        setup(props) {
-          const totalPassed = computed(() => {
-            return props.results.reduce((total, curr) => {
-              return (
-                total +
-                (curr?.testResults?.filter((t) => t.status === 'pass').length || 0) +
-                (curr?.assertionResults?.filter((t) => t.status === 'pass').length || 0)
-              );
-            }, 0);
-          });
-          const total = computed(() => {
-            return props.results.reduce((total, curr) => {
-              return total + (curr?.testResults?.length || 0) + (curr?.assertionResults?.length || 0);
-            }, 0);
-          });
-          const hasError = computed(() => props.results.some((r) => !!r.error || r?.status === 'error'));
-          const hasFailure = computed(() => totalPassed.value !== total.value);
-          return {
-            totalPassed,
-            total,
-            hasFailure,
-            hasError,
-            group: props.group,
-            results: props.results
-          };
-        }
-      });
-
       app.component('x-result', {
         template: '#result-component',
-        props: ['group', 'result'],
+        props: ['result'],
         setup(props) {
           const headerColumns = [
             {
@@ -980,6 +569,7 @@
             return row.status === 'fail' ? 'error' : 'success';
           };
           const testsRowClassName = (row) => {
+            if (row.status === 'skipped') return 'skipped';
             return row.status === 'fail' ? 'error' : 'success';
           };
           const testsColumns = [
@@ -1025,9 +615,14 @@
 
           const hasError = computed(() => !!props?.result?.error || props?.result?.status === 'error');
           const hasFailure = computed(() => total.value !== totalPassed.value);
-          const suitename = computed(() => props?.result?.suitename?.replace(props.group + '/', ''));
-          const testDuration = computed(() => Math.round(props?.result?.runtime * 1000) + ' ms');
-          const name = computed(() => props?.result?.suitename + props?.result?.runtime);
+          const testDuration = computed(() => Math.round(props?.result?.runDuration * 1000) + ' ms');
+          const resultTitle = computed(() => props?.result?.path + ' ' + props?.result?.response?.status + ' ' + props?.result?.response?.statusText);
+          const getAlertType = computed(() => {
+            if (props.result.response.status === 'skipped') {
+              return 'warning';
+            }
+            return hasError.value || hasFailure.value ? 'error' : 'success';
+          });
           return {
             headerColumns,
             headerDataRequest,
@@ -1041,9 +636,9 @@
             hasError,
             testsColumns,
             result: props.result,
-            suitename,
             testDuration,
-            name,
+            resultTitle,
+            getAlertType,
             iterationIndex: props?.result?.iterationIndex
           };
         }
